@@ -1,0 +1,103 @@
+{
+    "personal_info": {
+        "name": "Kimsang Silalahi",
+        "headline": "Full Stack Engineer | AI & Web3 Specialist | Game Developer",
+        "contact": {
+            "email": "kimsilalahi@gmail.com",
+            "phone": "+62 812-4689-4985",
+            "linkedin": "Kimsang Silalahi",
+            "portfolio_old": "https://porto-kim.vercel.app/"
+        }
+    },
+    "education": [
+        {
+            "institution": "Universitas Sumatera Utara",
+            "degree": "Bachelor of Computer Science",
+            "period": "July 2021 - July 2025",
+            "gpa": "3.77/4.00",
+            "focus": [
+                "Data Structures",
+                "Algorithms",
+                "OOP",
+                "Machine Learning"
+            ],
+            "url": "http://repositori.usu.ac.id:8080/handle/123456789/108104"
+        },
+        {
+            "institution": "INTI International University",
+            "program": "Student Mobility / MBKM Humanitarian Project",
+            "period": "October 2023 - January 2024",
+            "url": "https://iao.usu.ac.id/id/berita/mahasiswa-usu-berpartisipasi-dalam-program-kemanusiaan-di-malaysia"
+        }
+    ],
+    "skills": {
+        "ai_and_engineering": [
+            "K-Means",
+            "DBSCAN",
+            "CGANs",
+            "PyTorch",
+            "ESP32",
+            "Firebase",
+            "Web3 APIs"
+        ],
+        "development": [
+            "Python",
+            "PHP 8.2",
+            "PostgreSQL",
+            "ReactJS",
+            "Lua (Roblox Studio)",
+            "Git"
+        ],
+        "management": [
+            "Agile Delivery",
+            "Sprint Coordination",
+            "Technical Writing"
+        ]
+    },
+    "experience": [
+        {
+            "role": "Game Developer",
+            "company": "Exstore.id",
+            "period": "November 2025 - January 2026",
+            "highlights": [
+                "Engineered core mechanics for 'Gunung Gila' (RPG with custom token economy and advanced Lua scripting).",
+                "Developed 'Mall', a large-scale interactive map integrating SuperBiz SDK for analytics."
+            ],
+            "url": "https://www.roblox.com/games/89937206445659/GUNUNG-GILA"
+        },
+        {
+            "role": "Freelance Full Stack & AI Engineer",
+            "company": "Independent",
+            "period": "August 2024 - February 2026",
+            "highlights": [
+                "Developed a secure task management platform utilizing PHP 8.2 and PostgreSQL."
+            ],
+            "url": "https://github.com/KimiSilalahi766/To-do-list-Project"
+        },
+        {
+            "role": "Software Engineer Intern",
+            "company": "Ministry of Law and Human Rights",
+            "period": "July 2024 - August 2024",
+            "highlights": [
+                "Developed a document paraphrasing tool using CodeIgniter4 and PHP."
+            ],
+            "url": "https://github.com/KimiSilalahi766/Intern_Project_at_KEMENKUMHAM"
+        }
+    ],
+    "certifications": [
+        "Junior Web Programmer (260 Hours) - KEMNAKER RI",
+        "Hackathon 11 (Advancing the Web3 Ecosystem) - ICP Indonesia",
+        "Full Stack Web Development - Udemy",
+        "Machine Learning A-Z & Data Science Mastery - Udemy",
+        "English for IT - CISCO"
+    ],
+    "about": {
+        "quote": "Code is poetry. WebGL is the canvas where logic meets emotion.",
+        "description": "I am a Full Stack Engineer and Web3 Specialist who bridges the gap between complex algorithmic backends and ultra-premium interactive frontends."
+    },
+    "hobbies": [
+        "Playing Chess",
+        "Game Development",
+        "Exploring Neural Networks"
+    ]
+}
