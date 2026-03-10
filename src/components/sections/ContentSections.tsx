@@ -135,7 +135,7 @@ export function ExperienceSection() {
                                 <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(28px, 3vw, 40px)", color: "#f0f0f0", lineHeight: 0.95, margin: "0 0 8px", letterSpacing: "0.04em" }}>Secure Task<br />Platform</h3>
                                 <p style={{ fontFamily: "JetBrains Mono", fontSize: 10, color: "#555", letterSpacing: "0.06em", margin: "0 0 20px" }}>PHP 8.2 + POSTGRESQL · 2024</p>
                                 <div style={{ width: "100%", height: 200, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.12)", marginBottom: 20 }}>
-                                    <img src="/todolist.jpg" alt="To-Do List" loading="lazy" decoding="async"
+                                    <img src="/todolist.png" alt="To-Do List" loading="lazy" decoding="async"
                                         style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.8) contrast(1.1)", transition: "transform 0.4s" }}
                                         onMouseEnter={e => (e.target as HTMLImageElement).style.transform = "scale(1.04)"}
                                         onMouseLeave={e => (e.target as HTMLImageElement).style.transform = "scale(1)"} />

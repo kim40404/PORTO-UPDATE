@@ -58,8 +58,9 @@ const PROJECTS: Project[] = [
         category: "IoT · Hardware · ML",
         filters: ["IoT", "AI/ML"],
         tags: ["ESP32", "IoT", "Firebase", "Next.js", "K-NN", "Sensor Integration"],
-        url: "#",
+        url: "https://beemy-fe0b9.web.app/",
         badge: { text: "⚡ 88.25% ACCURACY", bg: "rgba(232,160,32,0.2)", border: "rgba(232,160,32,0.4)", color: "#f5c842" },
+        liveBadge: true,
     },
     {
         title: "CareerVerse — Decentralized Job Marketplace",
@@ -74,12 +75,13 @@ const PROJECTS: Project[] = [
     {
         title: "Secure Task Management Platform",
         desc: "Full-stack task management platform with enterprise-grade security. Built with PHP 8.2 and PostgreSQL featuring role-based access control, session management, and secure CRUD operations.",
-        image: "/todolist.jpg",
+        image: "/todolist.png",
         category: "WEB · Full Stack",
         filters: ["WEB"],
         tags: ["PHP 8.2", "PostgreSQL", "Authentication", "Security", "Full Stack"],
-        url: "https://github.com/KimiSilalahi766/To-do-list-Project",
+        url: "https://mytodolist.infinityfree.me/?i=1",
         links: [{ label: "GitHub ↗", url: "https://github.com/KimiSilalahi766/To-do-list-Project" }],
+        liveBadge: true,
     },
     {
         title: "Corkcicle — Scrollytelling Rebuild",
