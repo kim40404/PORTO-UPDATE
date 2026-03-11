@@ -1144,21 +1144,47 @@
   }
 }
 
-/* ── Mobile overrides for ALL cards ── */
+/* ── Shared card CSS ── */
+.exp-card {
+  background: rgba(14,10,3,0.9);
+  border: 1px solid rgba(232,160,32,0.11);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .28s ease, box-shadow .28s ease, transform .28s cubic-bezier(.16,1,.3,1);
+}
+.exp-card:hover {
+  border-color: rgba(232,160,32,.32);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4), 0 0 20px rgba(232,160,32,.05);
+  transform: translateY(-2px);
+}
+.exp-card::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(108deg, transparent 38%, rgba(232,160,32,.035) 50%, transparent 62%);
+  transition: left .5s ease; pointer-events: none;
+}
+.exp-card:hover::before { left: 100%; }
+
+/* Mobile overrides for cards */
 @media (max-width: 768px) {
-  /* Stack wide cards vertically */
-  .exp-card [style*="1fr 280px"],
-  .exp-card [style*="1fr 340px"] {
-    grid-template-columns: 1fr !important;
+  /* All span-X → full width */
+  [style*="span 5"],
+  [style*="span 7"],
+  [style*="1 / -1"] {
+    grid-column: 1 / -1 !important;
   }
-  /* Stack side-by-side cards */
-  [style*="1fr 1fr"] {
-    grid-template-columns: 1fr !important;
+  /* Inner grids → single column */
+  .exp-card [style*="gridTemplateColumns"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
   }
-  /* Reduce card padding on mobile */
-  .exp-card { padding: 16px !important; }
-  /* Project grid single column */
-  .projects-grid {
-    grid-template-columns: 1fr !important;
+  .exp-card { padding: 18px !important; }
+  .project-card[style*="span 7"],
+  .project-card[style*="span 5"],
+  .project-card[style*="span 4"] {
+    grid-column: 1 / -1 !important;
   }
 }

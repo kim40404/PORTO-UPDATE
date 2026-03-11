@@ -115,71 +115,102 @@ export function ProjectsSection() {
             </div>
 
             {/* Project grid */}
-            <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-                {filtered.map((p, i) => (
-                    <motion.div key={p.title}
-                        className={`project-card ${p.wide ? "md:col-span-2" : ""}`}
-                        style={{
-                            borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(232,160,32,0.11)',
-                            background: 'rgba(14,10,3,0.9)', transition: 'transform .3s, border-color .3s'
-                        }}
-                        onClick={() => p.url !== "#" && window.open(p.url, "_blank", "noopener,noreferrer")}
-                        role="link" tabIndex={0}
-                        onKeyDown={e => e.key === "Enter" && p.url !== "#" && window.open(p.url, "_blank")}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                        {/* Preview image */}
-                        <div className="relative w-full overflow-hidden" style={{ height: p.imageHeight || 180 }}>
-                            <Image src={p.image} alt={p.title} fill
-                                className="object-cover transition-all duration-600 hover:scale-105"
-                                style={{ filter: "brightness(0.75) contrast(1.1) saturate(0.9)", objectPosition: p.imagePosition || "center" }}
-                                loading="lazy" />
-                            {/* Category badge */}
-                            <span className="absolute top-3 left-3 px-3 py-1 bg-black/70 backdrop-blur-sm border border-molten-gold/40 rounded-full font-mono text-[10px] text-molten-gold tracking-wider uppercase z-10">
-                                {p.category}
-                            </span>
-                            {/* Arrow */}
-                            {p.url !== "#" && (
-                                <span className="absolute top-3 right-3 w-8 h-8 bg-molten-gold/15 border border-molten-gold/30 rounded-full flex items-center justify-center text-molten-gold text-sm opacity-0 group-hover:opacity-100 transition-opacity z-10">↗</span>
-                            )}
-                            {/* Live badge */}
-                            {p.liveBadge && (
-                                <span className="absolute top-3 right-3 px-3 py-1 bg-black/70 backdrop-blur-sm border rounded-full font-mono text-[10px] tracking-wider z-10 flex items-center gap-1.5" style={{ borderColor: "rgba(0,212,255,0.25)", color: "#00d4ff" }}>
-                                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#00d4ff", animation: "pulse-ring 2s infinite", display: "inline-block" }} />
-                                    LIVE
-                                </span>
-                            )}
-                            {/* Special badge */}
-                            {p.badge && (
-                                <span className="absolute bottom-3 right-3 px-3 py-1 rounded-full font-mono text-[10px] tracking-wider z-10"
-                                    style={{ background: p.badge.bg, border: `1px solid ${p.badge.border}`, color: p.badge.color }}>
-                                    {p.badge.text}
-                                </span>
-                            )}
-                        </div>
+            <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 16 }}>
+                {filtered.map((p, i) => {
+                    const spans = ['span 7', 'span 5', 'span 4', 'span 4', 'span 4', 'span 12'];
+                    const gridColumn = spans[i % spans.length];
 
-                        {/* Body */}
-                        <div style={{ padding: '18px' }}>
-                            <h3 className="font-display text-[24px] tracking-wider text-text-primary leading-none mb-2" style={{ fontSize: 22 }}>{p.title}</h3>
-                            <p className="font-body text-[13.5px] leading-[1.65] text-text-secondary mb-4 line-clamp-3">{p.desc}</p>
-                            <div className="flex flex-wrap gap-1.5 mb-4">
-                                {p.tags.map(t => (<span key={t} className="tag">{t}</span>))}
+                    const getHeight = (index: number) => {
+                        if (index === 0) return 260; // Thesis hero
+                        if (index === 1) return 260; // Decodream tall
+                        if (index === 5) return 300; // Corkcicle cinematic
+                        return 180; // Default
+                    };
+                    const imgHeight = getHeight(i);
+
+                    return (
+                        <motion.div key={p.title}
+                            className="project-card exp-card" // Added exp-card for shared hover/border logic
+                            style={{
+                                gridColumn,
+                                borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(232,160,32,0.11)',
+                                background: 'rgba(14,10,3,0.9)', cursor: 'pointer', padding: 0
+                            }}
+                            onClick={() => p.url !== "#" && window.open(p.url, "_blank", "noopener,noreferrer")}
+                            role="link" tabIndex={0}
+                            onKeyDown={e => e.key === "Enter" && p.url !== "#" && window.open(p.url, "_blank")}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                            {/* Preview image */}
+                            <div className="relative w-full overflow-hidden" style={{ height: imgHeight }}>
+                                <Image src={p.image} alt={p.title} fill
+                                    className="object-cover transition-all duration-700 hover:scale-105"
+                                    style={{ filter: "brightness(0.85) contrast(1.1) saturate(1.05)", objectPosition: p.imagePosition || "center" }}
+                                    loading="lazy" />
+                                {/* Category badge */}
+                                <span className="absolute top-4 left-4 px-3 py-1 bg-black/70 backdrop-blur-md border border-molten-gold/40 rounded-full font-mono text-[10px] text-molten-gold tracking-widest uppercase z-10">
+                                    {p.category}
+                                </span>
+                                {/* Live badge */}
+                                {p.liveBadge && (
+                                    <span className="absolute top-4 right-4 px-3 py-1 bg-black/70 backdrop-blur-md border rounded-full font-mono text-[10px] tracking-wider z-10 flex items-center gap-1.5"
+                                        style={{ borderColor: "rgba(0,212,255,0.3)", color: "#00d4ff" }}>
+                                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#00d4ff", animation: "pulse-ring 2s infinite", display: "inline-block" }} />
+                                        LIVE
+                                    </span>
+                                )}
+                                {/* Special badge (if no live badge) */}
+                                {p.badge && !p.liveBadge && (
+                                    <span className="absolute bottom-4 right-4 px-3 py-1 rounded-full font-mono text-[10px] tracking-widest z-10 font-bold"
+                                        style={{ background: p.badge.bg, border: `1px solid ${p.badge.border}`, color: p.badge.color, backdropFilter: 'blur(4px)' }}>
+                                        {p.badge.text}
+                                    </span>
+                                )}
                             </div>
-                            {p.links && (
-                                <div className="flex gap-3 flex-wrap">
-                                    {p.links.map(l => (
-                                        <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer"
-                                            onClick={e => e.stopPropagation()} className="exp-link"
-                                            style={l.style} data-hoverable>{l.label}</a>
+
+                            {/* Body */}
+                            <div style={{ padding: '24px' }}>
+                                <h3 className="font-display tracking-wider text-[#f0f0f0] leading-[1.1] mb-3" style={{ fontSize: 'clamp(22px, 2.5vw, 28px)' }}>{p.title}</h3>
+                                <p className="font-mono text-[12px] leading-[1.6] text-[#888] mb-5 line-clamp-3">{p.desc}</p>
+                                
+                                <div className="flex flex-wrap gap-2 mb-5">
+                                    {p.tags.slice(0, 5).map(t => (
+                                        <span key={t} style={{
+                                            padding: '4px 10px', background: 'rgba(232,160,32,0.07)',
+                                            border: '1px solid rgba(232,160,32,0.18)', borderRadius: 6,
+                                            fontFamily: 'JetBrains Mono', fontSize: 10, color: '#b0b8c8'
+                                        }}>{t}</span>
                                     ))}
+                                    {p.tags.length > 5 && (
+                                        <span style={{
+                                            padding: '4px 8px', background: 'transparent',
+                                            fontFamily: 'JetBrains Mono', fontSize: 10, color: '#555'
+                                        }}>+{p.tags.length - 5}</span>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                    </motion.div>
-                ))}
+                                
+                                {p.links && (
+                                    <div className="flex gap-2 flex-wrap">
+                                        {p.links.map(l => (
+                                            <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer"
+                                                onClick={e => e.stopPropagation()}
+                                                style={{
+                                                    padding: '4px 12px', background: l.style?.background || 'rgba(232,160,32,0.1)',
+                                                    border: `1px solid ${l.style?.borderColor || 'rgba(232,160,32,0.35)'}`, borderRadius: 6,
+                                                    fontFamily: 'JetBrains Mono', fontSize: 10, color: l.style?.color || '#e8a020', textDecoration: 'none'
+                                                }} data-hoverable>
+                                                {l.label}
+                                            </a>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    );
+                })}
             </div>
         </div>
     );
