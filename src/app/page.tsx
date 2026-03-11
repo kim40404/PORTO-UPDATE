@@ -11,7 +11,7 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ExperienceSection, EducationSection } from "@/components/sections/ContentSections";
 import { ChessCanvas, SkillsCanvas } from "@/components/canvas/Canvases";
-import { ChatBot } from "@/components/ui/ChatBot";
+import ChatBot from "@/components/ui/ChatBot";
 import {
     Download, Mail, Linkedin, ExternalLink,
     Award, Phone, X, BrainCircuit, Send
@@ -107,21 +107,35 @@ function AnimatedCounter({ target, suffix = "", label }: { target: number; suffi
 // ════════════════════════════════
 // MAIN PAGE
 // ════════════════════════════════
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check, { passive: true })
+    return () => window.removeEventListener('resize', check)
+  }, [])
+  return isMobile
+}
+
 export default function Home() {
     const { certifications } = portfolioData as any;
     const [loaded, setLoaded] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
 
-    const [isMobile, setIsMobile] = useState(false);
+    const isMobile = useIsMobile();
     const [roleIdx, setRoleIdx] = useState(0);
     const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+
+    useEffect(() => setMounted(true), []);
 
     useEffect(() => {
         const t = setInterval(() => setRoleIdx(p => (p + 1) % ROLES.length), 3000);
         return () => clearInterval(t);
     }, []);
 
-    useEffect(() => { const c = () => setIsMobile(window.innerWidth < 768 || /iPhone|iPad|Android/i.test(navigator.userAgent)); c(); window.addEventListener("resize", c); return () => window.removeEventListener("resize", c); }, []);
+
 
     useEffect(() => {
         let st: ReturnType<typeof setTimeout>;
@@ -204,9 +218,28 @@ export default function Home() {
                         <ScrollReveal><SectionLabel>Technologies · Frameworks · Methodologies</SectionLabel></ScrollReveal>
                         <ScrollReveal delay={0.1}><SectionTitle className="mt-4 mb-16">Core Expertise</SectionTitle></ScrollReveal>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center" style={{ maxWidth: 1200, margin: "0 auto" }}>
-                            {!isMobile && <ScrollReveal delay={0.2}><div style={{ width: "100%", maxWidth: 460, margin: "0 auto" }}>
-                                {loaded && <SkillsCanvas />}
-                            </div></ScrollReveal>}
+                            <ScrollReveal delay={0.2}>
+                                {!mounted || isMobile ? (
+                                  <div style={{
+                                    width: '100%', height: 320,
+                                    borderRadius: 16, overflow: 'hidden',
+                                    border: '1px solid rgba(232,160,32,0.1)',
+                                    background: 'radial-gradient(ellipse at 50% 45%, #1c0d00 0%, #080808 100%)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    flexDirection: 'column', gap: 16,
+                                  }}>
+                                    <div style={{ fontSize: 64 }}>🧠</div>
+                                    <div style={{ fontFamily: 'JetBrains Mono', fontSize: 10,
+                                      color: 'rgba(232,160,32,0.4)', letterSpacing: '0.2em' }}>
+                                      NEURAL ARCHITECTURE
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div style={{ width: "100%", maxWidth: 460, margin: "0 auto" }}>
+                                      {loaded && <SkillsCanvas />}
+                                  </div>
+                                )}
+                            </ScrollReveal>
                             <div className="space-y-8">
                                 {Object.entries(SKILLS_DATA).map(([cat, { icon, color, items }], ci) => (
                                     <ScrollReveal key={cat} delay={0.2 + ci * 0.1}><div>
@@ -293,7 +326,24 @@ export default function Home() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             <ScrollReveal delay={0.2}>
                                 <div onClick={() => window.open("https://www.chess.com/member/kim_766", "_blank", "noopener,noreferrer")} role="link" tabIndex={0} data-hoverable style={{ cursor: "pointer" }}>
-                                    {loaded && !isMobile ? <ChessCanvas /> : <div style={{ width: "100%", height: 500, borderRadius: 20, border: "1px solid rgba(232,160,32,0.1)", background: "#080604", display: "flex", alignItems: "center", justifyContent: "center" }}><div className="w-32 h-32 rounded-full bg-molten-gold/10 border border-molten-gold/20 flex items-center justify-center text-4xl">♟</div></div>}
+                                    {!mounted || isMobile ? (
+                                      <div style={{
+                                        width: '100%', height: 240,
+                                        borderRadius: 16,
+                                        background: 'radial-gradient(ellipse at 50% 70%, #120e04 0%, #080604 100%)',
+                                        border: '1px solid rgba(232,160,32,0.1)',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        flexDirection: 'column', gap: 12,
+                                      }}>
+                                        <div style={{ fontSize: 56 }}>♟️</div>
+                                        <div style={{ fontFamily: 'JetBrains Mono', fontSize: 10,
+                                          color: 'rgba(232,160,32,0.4)', letterSpacing: '0.15em' }}>
+                                          CHESS · kim_766
+                                        </div>
+                                      </div>
+                                    ) : (
+                                        loaded ? <ChessCanvas /> : <div style={{ width: "100%", height: 500, borderRadius: 20, border: "1px solid rgba(232,160,32,0.1)", background: "#080604", display: "flex", alignItems: "center", justifyContent: "center" }}><div className="w-32 h-32 rounded-full bg-molten-gold/10 border border-molten-gold/20 flex items-center justify-center text-4xl">♟</div></div>
+                                    )}
                                     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 16, fontFamily: "JetBrains Mono", fontSize: 11, color: "rgba(232,160,32,0.5)", letterSpacing: "0.1em" }}>
                                         <span>♟</span><span>chess.com/member/kim_766</span><span style={{ fontSize: 13 }}>↗</span>
                                     </div>
@@ -312,29 +362,221 @@ export default function Home() {
                 <GoldDotDivider />
 
                 {/* ═══ CONTACT / FOOTER ═══ */}
-                <section id="contact" className="py-24 md:py-32 relative section-contained">
-                    <div className="absolute inset-0 overflow-hidden pointer-events-none"><div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-gradient-to-br from-electric-cyan/10 via-cool-accent/5 to-molten-gold/10 blur-[150px] rounded-full" /></div>
-                    <div className="max-w-5xl mx-auto px-6 relative z-10">
-                        <ScrollReveal><div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
-                            <a href="mailto:kimsilalahi@gmail.com" className="glass-card molten-border rounded-2xl p-6 flex items-center gap-4 group" data-hoverable><div className="w-12 h-12 rounded-full bg-molten-gold/10 border border-molten-gold/20 flex items-center justify-center group-hover:scale-110 transition-transform"><Mail className="w-5 h-5 text-molten-gold" /></div><div><p className="font-mono text-[10px] text-text-muted uppercase tracking-wider">Email</p><p className="text-text-primary text-sm">kimsilalahi@gmail.com</p></div></a>
-                            <a href="tel:+6281246894985" className="glass-card molten-border rounded-2xl p-6 flex items-center gap-4 group" data-hoverable><div className="w-12 h-12 rounded-full bg-molten-gold/10 border border-molten-gold/20 flex items-center justify-center group-hover:scale-110 transition-transform"><Phone className="w-5 h-5 text-molten-gold" /></div><div><p className="font-mono text-[10px] text-text-muted uppercase tracking-wider">Phone</p><p className="text-text-primary text-sm">+62 812-4689-4985</p></div></a>
-                            <a href="https://www.linkedin.com/in/kimsang-silalahi-3a8b13308/" target="_blank" rel="noopener noreferrer" className="glass-card molten-border rounded-2xl p-6 flex items-center gap-4 group" data-hoverable><div className="w-12 h-12 rounded-full bg-molten-gold/10 border border-molten-gold/20 flex items-center justify-center group-hover:scale-110 transition-transform"><Linkedin className="w-5 h-5 text-molten-gold" /></div><div><p className="font-mono text-[10px] text-text-muted uppercase tracking-wider">LinkedIn</p><p className="text-text-primary text-sm">Kimsang Silalahi</p></div></a>
-                        </div></ScrollReveal>
-                        <ScrollReveal delay={0.15}><div className="glass-card rounded-[2.5rem] p-12 md:p-20 text-center relative overflow-hidden">
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-molten-gold/10 blur-[120px] rounded-full pointer-events-none" />
-                            <div className="relative z-10 space-y-8"><SectionLabel>Next Chapter</SectionLabel><h2 className="font-display tracking-wider text-text-primary leading-tight" style={{ fontSize: "clamp(48px, 8vw, 108px)" }}>Let&apos;s Create<br /><span className="text-gradient-gold">Excellence.</span></h2>
-                                <div className="pt-4"><MagneticButton href="mailto:kimsilalahi@gmail.com" className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 font-mono text-sm tracking-wider text-bg-void bg-molten-gold rounded-full hover:bg-molten-glow transition-colors overflow-hidden"><span className="relative z-10 flex items-center gap-3">Start a Conversation <Mail className="w-5 h-5" /></span></MagneticButton></div>
-                            </div>
-                        </div></ScrollReveal>
-                        <footer className="mt-20 flex flex-col md:flex-row items-center justify-between gap-6 text-text-muted">
-                            <p className="font-mono text-[11px] tracking-wider">© {new Date().getFullYear()} Kimsang Silalahi. All rights reserved.</p>
-                            <div className="flex items-center gap-2 font-mono text-[11px] tracking-wider">
-                                <a href="mailto:kimsilalahi@gmail.com" className="hover:text-molten-gold transition-colors link-animate" data-hoverable>kimsilalahi@gmail.com</a>
-                                <span className="text-text-muted/30">·</span><a href="https://www.linkedin.com/in/kimsang-silalahi-3a8b13308/" target="_blank" rel="noopener noreferrer" className="hover:text-molten-gold transition-colors link-animate flex items-center gap-1" data-hoverable>LinkedIn <ExternalLink className="w-3 h-3" /></a>
-                                <span className="text-text-muted/30">·</span><a href="https://github.com/KimiSilalahi766" target="_blank" rel="noopener noreferrer" className="hover:text-molten-gold transition-colors link-animate flex items-center gap-1" data-hoverable>GitHub <ExternalLink className="w-3 h-3" /></a>
-                            </div>
-                        </footer>
+                <section id="contact" style={{
+                  position: 'relative',
+                  padding: '100px 40px 60px',
+                  overflow: 'hidden',
+                  background: '#080808',
+                }}>
+
+                  {/* Animated background glow */}
+                  <div style={{
+                    position: 'absolute', top: 0, left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '80%', height: 1,
+                    background: 'linear-gradient(90deg, transparent, rgba(232,160,32,0.4), transparent)',
+                  }} />
+                  <div style={{
+                    position: 'absolute', top: '-20%', left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 600, height: 400,
+                    borderRadius: '50%',
+                    background: 'radial-gradient(ellipse, rgba(232,160,32,0.04) 0%, transparent 70%)',
+                    pointerEvents: 'none',
+                  }} />
+
+                  <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center', position: 'relative' }}>
+
+                    {/* Eyebrow */}
+                    <div style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 10,
+                      padding: '6px 16px',
+                      border: '1px solid rgba(232,160,32,0.2)',
+                      borderRadius: 50, marginBottom: 32,
+                      background: 'rgba(232,160,32,0.04)',
+                    }}>
+                      <span style={{ width: 6, height: 6, borderRadius: '50%',
+                        background: '#00d4ff', boxShadow: '0 0 6px #00d4ff',
+                        display: 'inline-block', animation: 'footerPulse 2s ease-in-out infinite' }} />
+                      <span style={{ fontFamily: 'JetBrains Mono', fontSize: 10,
+                        color: '#e8a020', letterSpacing: '0.2em' }}>AVAILABLE FOR HIRE</span>
                     </div>
+
+                    {/* Main headline */}
+                    <h2 style={{
+                      fontFamily: "'Bebas Neue', sans-serif",
+                      fontSize: 'clamp(40px, 7vw, 88px)',
+                      lineHeight: 0.92, letterSpacing: '0.02em',
+                      margin: '0 0 8px',
+                    }}>
+                      <span style={{
+                        background: 'linear-gradient(180deg, #f0f0f0 0%, #999 100%)',
+                        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                      }}>Let's Build</span>
+                      <br />
+                      <span style={{
+                        background: 'linear-gradient(135deg, #e8a020 0%, #f5c842 50%, #e8a020 100%)',
+                        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        backgroundSize: '200% 200%',
+                        animation: 'goldShimmer 3s ease-in-out infinite',
+                      }}>Something Remarkable</span>
+                    </h2>
+
+                    {/* Subtext */}
+                    <p style={{
+                      fontFamily: 'Syne', fontSize: 16, color: '#555',
+                      maxWidth: 480, margin: '20px auto 40px', lineHeight: 1.7,
+                    }}>
+                      AI engineer, full stack developer, and creative builder —
+                      ready to turn your boldest idea into reality.
+                    </p>
+
+                    {/* Primary CTA */}
+                    <div style={{
+                      display: 'flex', gap: 14, justifyContent: 'center',
+                      flexWrap: 'wrap', marginBottom: 48,
+                    }}>
+                      <a href="mailto:kimsilalahi@gmail.com" style={{
+                        display: 'flex', alignItems: 'center', gap: 8,
+                        padding: '14px 32px',
+                        background: 'linear-gradient(135deg, #e8a020, #f5c842)',
+                        borderRadius: 50,
+                        fontFamily: 'JetBrains Mono', fontSize: 12,
+                        color: '#080808', fontWeight: 700,
+                        textDecoration: 'none', letterSpacing: '0.08em',
+                        boxShadow: '0 8px 32px rgba(232,160,32,0.3)',
+                        transition: 'transform .2s, box-shadow .2s',
+                      }}
+                      onMouseEnter={e => {
+                        (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
+                        ;(e.currentTarget as HTMLElement).style.boxShadow = '0 12px 40px rgba(232,160,32,0.45)'
+                      }}
+                      onMouseLeave={e => {
+                        (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+                        ;(e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(232,160,32,0.3)'
+                      }}>
+                        ✉ kimsilalahi@gmail.com
+                      </a>
+
+                      <a href="https://www.linkedin.com/in/kimsang-silalahi-3a8b13308/"
+                        target="_blank" rel="noopener noreferrer" style={{
+                        display: 'flex', alignItems: 'center', gap: 8,
+                        padding: '14px 32px',
+                        background: 'transparent',
+                        border: '1px solid rgba(232,160,32,0.3)',
+                        borderRadius: 50,
+                        fontFamily: 'JetBrains Mono', fontSize: 12,
+                        color: '#e8a020', textDecoration: 'none',
+                        letterSpacing: '0.08em',
+                        transition: 'border-color .2s, background .2s',
+                      }}
+                      onMouseEnter={e => {
+                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(232,160,32,0.7)'
+                        ;(e.currentTarget as HTMLElement).style.background = 'rgba(232,160,32,0.06)'
+                      }}
+                      onMouseLeave={e => {
+                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(232,160,32,0.3)'
+                        ;(e.currentTarget as HTMLElement).style.background = 'transparent'
+                      }}>
+                        LinkedIn ↗
+                      </a>
+                    </div>
+
+                    {/* Divider with center diamond */}
+                    <div style={{ position: 'relative', margin: '0 auto 32px', maxWidth: 400 }}>
+                      <div style={{
+                        height: 1,
+                        background: 'linear-gradient(90deg, transparent, rgba(232,160,32,0.2), transparent)',
+                      }} />
+                      <div style={{
+                        position: 'absolute', top: '50%', left: '50%',
+                        transform: 'translate(-50%,-50%) rotate(45deg)',
+                        width: 6, height: 6,
+                        background: '#e8a020',
+                        boxShadow: '0 0 8px rgba(232,160,32,0.6)',
+                      }} />
+                    </div>
+
+                    {/* Social links */}
+                    <div style={{
+                      display: 'flex', gap: 8, justifyContent: 'center',
+                      flexWrap: 'wrap', marginBottom: 40,
+                    }}>
+                      {[
+                        { label: 'GitHub', url: 'https://github.com/KimiSilalahi766' },
+                        { label: 'Chess.com', url: 'https://www.chess.com/member/kim_766' },
+                        { label: 'DoraHacks', url: 'https://dorahacks.io/buidl/31489' },
+                        { label: '+62 812-4689-4985', url: 'tel:+6281246894985' },
+                      ].map(l => (
+                        <a key={l.label} href={l.url}
+                          target="_blank" rel="noopener noreferrer"
+                          style={{
+                            padding: '7px 16px',
+                            background: 'rgba(255,255,255,0.03)',
+                            border: '1px solid rgba(255,255,255,0.07)',
+                            borderRadius: 50,
+                            fontFamily: 'JetBrains Mono', fontSize: 10,
+                            color: '#555', textDecoration: 'none',
+                            letterSpacing: '0.08em',
+                            transition: 'color .2s, border-color .2s, background .2s',
+                          }}
+                          onMouseEnter={e => {
+                            const el = e.currentTarget as HTMLElement
+                            el.style.color = '#e8a020'
+                            el.style.borderColor = 'rgba(232,160,32,0.3)'
+                            el.style.background = 'rgba(232,160,32,0.05)'
+                          }}
+                          onMouseLeave={e => {
+                            const el = e.currentTarget as HTMLElement
+                            el.style.color = '#555'
+                            el.style.borderColor = 'rgba(255,255,255,0.07)'
+                            el.style.background = 'rgba(255,255,255,0.03)'
+                          }}
+                        >{l.label}</a>
+                      ))}
+                    </div>
+
+                    {/* Bottom bar */}
+                    <div style={{
+                      display: 'flex', alignItems: 'center',
+                      justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
+                    }}>
+                      <span style={{ fontFamily: 'JetBrains Mono', fontSize: 10,
+                        color: 'rgba(255,255,255,0.12)', letterSpacing: '0.1em' }}>
+                        © 2025 KIMSANG SILALAHI
+                      </span>
+                      <span style={{ fontFamily: 'JetBrains Mono', fontSize: 10,
+                        color: 'rgba(255,255,255,0.12)', letterSpacing: '0.1em' }}>
+                        MEDAN · INDONESIA
+                      </span>
+                      <span style={{ fontFamily: 'JetBrains Mono', fontSize: 10,
+                        color: 'rgba(255,255,255,0.12)', letterSpacing: '0.1em' }}>
+                        BUILT WITH PASSION ♦
+                      </span>
+                    </div>
+                  </div>
+
+                  <style>{`
+                    @keyframes footerPulse {
+                      0%, 100% { opacity: 1; transform: scale(1); }
+                      50%       { opacity: 0.5; transform: scale(1.3); }
+                    }
+                    @keyframes goldShimmer {
+                      0%   { background-position: 0% 50%; }
+                      50%  { background-position: 100% 50%; }
+                      100% { background-position: 0% 50%; }
+                    }
+
+                    @media (max-width: 768px) {
+                      /* Footer */
+                      .footer-section { padding: 64px 20px 40px !important; }
+                      .footer-headline { font-size: clamp(36px, 11vw, 56px) !important; }
+                      .footer-cta { flex-direction: column; align-items: center; }
+                      .footer-cta a { width: 100%; text-align: center; justify-content: center; }
+                    }
+                  `}</style>
                 </section>
             </main>
             <ChatBot />

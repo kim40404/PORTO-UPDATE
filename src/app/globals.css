@@ -1143,3 +1143,22 @@
     display: none !important;
   }
 }
+
+/* ── Mobile overrides for ALL cards ── */
+@media (max-width: 768px) {
+  /* Stack wide cards vertically */
+  .exp-card [style*="1fr 280px"],
+  .exp-card [style*="1fr 340px"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Stack side-by-side cards */
+  [style*="1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Reduce card padding on mobile */
+  .exp-card { padding: 16px !important; }
+  /* Project grid single column */
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

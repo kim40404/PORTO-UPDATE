@@ -115,10 +115,14 @@ export function ProjectsSection() {
             </div>
 
             {/* Project grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
                 {filtered.map((p, i) => (
                     <motion.div key={p.title}
                         className={`project-card ${p.wide ? "md:col-span-2" : ""}`}
+                        style={{
+                            borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(232,160,32,0.11)',
+                            background: 'rgba(14,10,3,0.9)', transition: 'transform .3s, border-color .3s'
+                        }}
                         onClick={() => p.url !== "#" && window.open(p.url, "_blank", "noopener,noreferrer")}
                         role="link" tabIndex={0}
                         onKeyDown={e => e.key === "Enter" && p.url !== "#" && window.open(p.url, "_blank")}
@@ -128,7 +132,7 @@ export function ProjectsSection() {
                         transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     >
                         {/* Preview image */}
-                        <div className="relative w-full overflow-hidden" style={{ height: p.imageHeight || 220 }}>
+                        <div className="relative w-full overflow-hidden" style={{ height: p.imageHeight || 180 }}>
                             <Image src={p.image} alt={p.title} fill
                                 className="object-cover transition-all duration-600 hover:scale-105"
                                 style={{ filter: "brightness(0.75) contrast(1.1) saturate(0.9)", objectPosition: p.imagePosition || "center" }}
@@ -158,8 +162,8 @@ export function ProjectsSection() {
                         </div>
 
                         {/* Body */}
-                        <div className="px-6 py-5">
-                            <h3 className="font-display text-[28px] tracking-wider text-text-primary leading-none mb-2">{p.title}</h3>
+                        <div style={{ padding: '18px' }}>
+                            <h3 className="font-display text-[24px] tracking-wider text-text-primary leading-none mb-2" style={{ fontSize: 22 }}>{p.title}</h3>
                             <p className="font-body text-[13.5px] leading-[1.65] text-text-secondary mb-4 line-clamp-3">{p.desc}</p>
                             <div className="flex flex-wrap gap-1.5 mb-4">
                                 {p.tags.map(t => (<span key={t} className="tag">{t}</span>))}

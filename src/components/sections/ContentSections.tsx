@@ -17,8 +17,19 @@ function ScrollReveal({ children, className = "", delay = 0 }: { children: React
     );
 }
 
+function useIsMobile() {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener('resize', check, { passive: true });
+        return () => window.removeEventListener('resize', check);
+    }, []);
+    return isMobile;
+}
+
 export function ExperienceSection() {
-    const [isMobile] = useState(() => typeof window !== "undefined" && (window.innerWidth < 768 || /iPhone|iPad|Android/i.test(navigator.userAgent)));
+    const isMobile = useIsMobile();
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
 
@@ -49,8 +60,15 @@ export function ExperienceSection() {
 
                     {/* ── CARD 1: Game Developer ── */}
                     <ScrollReveal>
-                        <div className="exp-card" onClick={() => window.open("https://www.roblox.com/games/89937206445659/GUNUNG-GILA", "_blank", "noopener,noreferrer")} role="link" tabIndex={0} data-hoverable>
-                            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 360px", gap: 40, alignItems: "start" }}>
+                        <div className="exp-card" style={{
+                            background: 'rgba(14,10,3,0.9)',
+                            border: '1px solid rgba(232,160,32,0.11)',
+                            borderRadius: 16,
+                            padding: '24px',
+                            cursor: 'pointer',
+                            transition: 'border-color .3s, box-shadow .3s, transform .3s',
+                        }} onClick={() => window.open("https://www.roblox.com/games/89937206445659/GUNUNG-GILA", "_blank", "noopener,noreferrer")} role="link" tabIndex={0} data-hoverable>
+                            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 280px", gap: 28, alignItems: "start" }}>
                                 <div>
                                     <p style={{ fontFamily: "JetBrains Mono", fontSize: 10, color: "rgba(232,160,32,0.4)", letterSpacing: "0.2em", margin: "0 0 16px" }}>01 / GAME DEVELOPER</p>
                                     <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px, 4vw, 52px)", color: "#f0f0f0", lineHeight: 0.95, margin: "0 0 10px", letterSpacing: "0.04em" }}>Game Developer</h3>
@@ -80,14 +98,23 @@ export function ExperienceSection() {
                                     </div>
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                                    <div style={{ height: 200, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.15)" }}>
+                                    <div style={{ height: 160, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.15)" }}>
                                         <img src="/gununggila.jpeg" alt="Gunung Gila" loading="lazy" decoding="async"
                                             style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.82) contrast(1.1)", transition: "transform 0.4s" }}
                                             onMouseEnter={e => (e.target as HTMLImageElement).style.transform = "scale(1.04)"}
                                             onMouseLeave={e => (e.target as HTMLImageElement).style.transform = "scale(1)"} />
                                     </div>
-                                    {mounted && !isMobile && (
-                                        <div style={{ height: 130, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.1)", background: "#0a0703" }}>
+                                    {!mounted || isMobile ? (
+                                        <div style={{
+                                            width: '100%', height: 100,
+                                            borderRadius: 12,
+                                            background: 'linear-gradient(180deg, #1a2a10 0%, #0a0703 100%)',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        }}>
+                                            <span style={{ fontSize: 40 }}>⛰️</span>
+                                        </div>
+                                    ) : (
+                                        <div style={{ height: 100, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.1)", background: "#0a0703" }}>
                                             <MountainPreviewDynamic />
                                         </div>
                                     )}
@@ -100,12 +127,18 @@ export function ExperienceSection() {
                     <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
                         {/* CARD 2: Freelance */}
                         <ScrollReveal delay={0.1}>
-                            <div className="exp-card" onClick={() => window.open("https://www.linkedin.com/in/kimsang-silalahi-3a8b13308/", "_blank", "noopener,noreferrer")} role="link" tabIndex={0} data-hoverable>
+                            <div className="exp-card" style={{
+                                padding: '22px', minHeight: 420, display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+                                background: 'rgba(14,10,3,0.9)', border: '1px solid rgba(232,160,32,0.11)', borderRadius: 16, cursor: 'pointer', transition: 'border-color .3s, transform .3s'
+                            }} onClick={() => window.open("https://www.linkedin.com/in/kimsang-silalahi-3a8b13308/", "_blank", "noopener,noreferrer")} role="link" tabIndex={0} data-hoverable>
+                                <div>
                                 <p style={{ fontFamily: "JetBrains Mono", fontSize: 10, color: "rgba(232,160,32,0.4)", letterSpacing: "0.2em", margin: "0 0 16px" }}>02 / FREELANCE</p>
                                 <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(28px, 3vw, 40px)", color: "#f0f0f0", lineHeight: 0.95, margin: "0 0 8px", letterSpacing: "0.04em" }}>Full Stack &amp;<br />AI Engineer</h3>
                                 <p style={{ fontFamily: "JetBrains Mono", fontSize: 10, color: "#555", letterSpacing: "0.06em", margin: "0 0 20px" }}>INDEPENDENT · AUG 2024 – FEB 2026</p>
-                                <div style={{ width: "100%", borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.12)", marginBottom: 20, position: "relative" }}>
-                                    <img src="/freelance.png" alt="Kimsang Silalahi" loading="lazy" decoding="async" style={{ width: "100%", height: "auto", display: "block", filter: "brightness(0.88) contrast(1.05)" }} />
+                                </div>
+                                <div>
+                                <div style={{ width: "100%", height: 160, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.12)", marginBottom: 20, position: "relative" }}>
+                                    <img src="/freelance.png" alt="Kimsang Silalahi" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", filter: "brightness(0.88) contrast(1.05)" }} />
                                     <div style={{ position: "absolute", top: 10, right: 10, padding: "3px 10px", background: "rgba(0,0,0,0.72)", backdropFilter: "blur(8px)", border: "1px solid rgba(232,160,32,0.3)", borderRadius: 20, fontFamily: "JetBrains Mono", fontSize: 9, color: "#e8a020" }}>AVAILABLE</div>
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
@@ -125,16 +158,23 @@ export function ExperienceSection() {
                                         LinkedIn ↗
                                     </a>
                                 </div>
+                                </div>
                             </div>
                         </ScrollReveal>
 
                         {/* CARD 3: To-Do List */}
                         <ScrollReveal delay={0.15}>
-                            <div className="exp-card" onClick={() => window.open("https://github.com/KimiSilalahi766/To-do-list-Project", "_blank", "noopener,noreferrer")} role="link" tabIndex={0} data-hoverable>
+                            <div className="exp-card" style={{
+                                padding: '22px', minHeight: 420, display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+                                background: 'rgba(14,10,3,0.9)', border: '1px solid rgba(232,160,32,0.11)', borderRadius: 16, cursor: 'pointer', transition: 'border-color .3s, transform .3s'
+                            }} onClick={() => window.open("https://github.com/KimiSilalahi766/To-do-list-Project", "_blank", "noopener,noreferrer")} role="link" tabIndex={0} data-hoverable>
+                                <div>
                                 <p style={{ fontFamily: "JetBrains Mono", fontSize: 10, color: "rgba(232,160,32,0.4)", letterSpacing: "0.2em", margin: "0 0 16px" }}>03 / PROJECT</p>
                                 <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(28px, 3vw, 40px)", color: "#f0f0f0", lineHeight: 0.95, margin: "0 0 8px", letterSpacing: "0.04em" }}>Secure Task<br />Platform</h3>
                                 <p style={{ fontFamily: "JetBrains Mono", fontSize: 10, color: "#555", letterSpacing: "0.06em", margin: "0 0 20px" }}>PHP 8.2 + POSTGRESQL · 2024</p>
-                                <div style={{ width: "100%", height: 200, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.12)", marginBottom: 20 }}>
+                                </div>
+                                <div>
+                                <div style={{ width: "100%", height: 160, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.12)", marginBottom: 20 }}>
                                     <img src="/todolist.png" alt="To-Do List" loading="lazy" decoding="async"
                                         style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.8) contrast(1.1)", transition: "transform 0.4s" }}
                                         onMouseEnter={e => (e.target as HTMLImageElement).style.transform = "scale(1.04)"}
@@ -152,14 +192,17 @@ export function ExperienceSection() {
                                     style={{ display: "inline-block", padding: "6px 14px", background: "rgba(232,160,32,0.08)", border: "1px solid rgba(232,160,32,0.28)", borderRadius: 8, fontFamily: "JetBrains Mono", fontSize: 11, color: "#e8a020", textDecoration: "none" }} data-hoverable>
                                     GitHub ↗
                                 </a>
+                                </div>
                             </div>
                         </ScrollReveal>
                     </div>
 
                     {/* ── CARD 4: Intern ── */}
                     <ScrollReveal delay={0.2}>
-                        <div className="exp-card" onClick={() => window.open("https://github.com/KimiSilalahi766/Intern_Project_at_KEMENKUMHAM", "_blank", "noopener,noreferrer")} role="link" tabIndex={0} data-hoverable>
-                            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 340px", gap: 40, alignItems: "start" }}>
+                        <div className="exp-card" style={{
+                            background: 'rgba(14,10,3,0.9)', border: '1px solid rgba(232,160,32,0.11)', borderRadius: 16, padding: '24px', cursor: 'pointer', transition: 'border-color .3s, transform .3s'
+                        }} onClick={() => window.open("https://github.com/KimiSilalahi766/Intern_Project_at_KEMENKUMHAM", "_blank", "noopener,noreferrer")} role="link" tabIndex={0} data-hoverable>
+                            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 280px", gap: 28, alignItems: "start" }}>
                                 <div>
                                     <p style={{ fontFamily: "JetBrains Mono", fontSize: 10, color: "rgba(232,160,32,0.4)", letterSpacing: "0.2em", margin: "0 0 16px" }}>04 / INTERNSHIP</p>
                                     <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px, 4vw, 52px)", color: "#f0f0f0", lineHeight: 0.95, margin: "0 0 10px", letterSpacing: "0.04em" }}>Software Engineer<br />Intern</h3>
@@ -186,7 +229,7 @@ export function ExperienceSection() {
                                         </a>
                                     </div>
                                 </div>
-                                <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.12)", height: "100%", minHeight: 280 }}>
+                                <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(232,160,32,0.12)", height: 160 }}>
                                     <img src="/magang.jpeg" alt="Internship" loading="lazy" decoding="async"
                                         style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", filter: "brightness(0.8) contrast(1.1) saturate(0.9)" }} />
                                 </div>
