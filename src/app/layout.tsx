@@ -1,31 +1,31 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Syne, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import { SmoothScroll } from "@/components/ui/SmoothScroll";
 
-const bebasNeue = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-display" });
-const syne = Syne({ subsets: ["latin"], variable: "--font-body" });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  weight: ["400", "500", "700"]
+});
 
 export const metadata: Metadata = {
-    title: "Kimsang Silalahi — Full Stack Engineer · AI Specialist · Game Developer",
-    description: "Award-worthy portfolio of Kimsang Silalahi: Full Stack Engineer, AI/ML Engineer, Web3 Specialist, and Game Developer from Indonesia. Dark Molten Liquid Metal experience.",
+  title: "Kimsang Silalahi — AI Engineer",
+  description: "Portfolio of Kimsang Silalahi: AI Engineer, LLM Apps, Agentic Systems, and Full Stack Developer.",
 };
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <html lang="en" className={`dark ${bebasNeue.variable} ${syne.variable} ${jetbrainsMono.variable}`}>
-            <body className="antialiased">
-                <SmoothScroll>
-                    {children}
-                </SmoothScroll>
-                {/* Grain Overlay */}
-                <div className="grain-overlay" aria-hidden="true" />
-            </body>
-        </html>
-    );
+  return (
+    <html lang="en" suppressHydrationWarning className={jetbrainsMono.variable}>
+      <body className="antialiased min-h-screen">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }
