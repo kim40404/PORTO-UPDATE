@@ -22,6 +22,7 @@ public/great_mountain.glb
 Kimsang_Silalahi_CV.pdf
 Kimsang_Silalahi_CV_2026_Final.docx
 CV.MD
+*.pdf
 
 # Duplicate / unused hero variants
 public/hero\ -\ Copy*.png
