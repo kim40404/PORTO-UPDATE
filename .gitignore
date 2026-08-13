@@ -7,3 +7,22 @@ out
 .env.test.local
 .env.production.local
 .vercel
+
+# Antigravity IDE agent config
+.agents/
+
+# Unused / archive assets (not shown in the web)
+public/_unused/
+public/*.glb
+public/chess_set*.glb
+public/neural_networks*.glb
+public/great_mountain.glb
+
+# Personal files not part of the portfolio site
+Kimsang_Silalahi_CV.pdf
+Kimsang_Silalahi_CV_2026_Final.docx
+CV.MD
+
+# Duplicate / unused hero variants
+public/hero\ -\ Copy*.png
+public/hero\ -\ Copy\ -\ Copy.png
