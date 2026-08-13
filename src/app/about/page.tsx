@@ -49,9 +49,11 @@ export default function AboutPage() {
         </div>
 
         {/* Work Experience */}
-        <section className="mb-10">
-          <p className="text-xs font-bold mb-3 text-[var(--accent)] tracking-widest">WORK EXPERIENCE</p>
-          <div className="border-t border-[var(--border)]">
+        <fieldset className="mb-10 border border-[var(--border)] p-5 pt-3 hover:border-[var(--accent)] transition-colors duration-300 group rounded-sm">
+          <legend className="text-xs font-bold px-2 text-[var(--accent)] tracking-widest group-hover:text-[var(--text)] transition-colors duration-300 uppercase">
+            [ WORK EXPERIENCE ]
+          </legend>
+          <div className="border-t border-[var(--border)] mt-1">
             {WORK.map((w) => (
               <AccordionItem key={w.role} title={`${w.role} — ${w.company}`}>
                 <p className="text-xs text-[var(--muted)] mb-1">{w.period}</p>
@@ -59,12 +61,14 @@ export default function AboutPage() {
               </AccordionItem>
             ))}
           </div>
-        </section>
+        </fieldset>
 
         {/* Tech Stack */}
-        <section className="mb-10">
-          <p className="text-xs font-bold mb-3 text-[var(--accent)] tracking-widest">TECH STACK</p>
-          <div className="space-y-2">
+        <fieldset className="mb-10 border border-[var(--border)] p-5 pt-3 hover:border-[var(--accent)] transition-colors duration-300 group rounded-sm">
+          <legend className="text-xs font-bold px-2 text-[var(--accent)] tracking-widest group-hover:text-[var(--text)] transition-colors duration-300 uppercase">
+            [ TECH STACK ]
+          </legend>
+          <div className="space-y-2 mt-1">
             {TECH_STACK.map(({ cat, items }) => (
               <div key={cat} className="text-sm">
                 <span className="text-[var(--muted)] mr-2">{cat}:</span>
@@ -72,12 +76,14 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-        </section>
+        </fieldset>
 
         {/* Education */}
-        <section className="mb-10">
-          <p className="text-xs font-bold mb-3 text-[var(--accent)] tracking-widest">EDUCATION</p>
-          <div className="text-sm space-y-2">
+        <fieldset className="mb-10 border border-[var(--border)] p-5 pt-3 hover:border-[var(--accent)] transition-colors duration-300 group rounded-sm">
+          <legend className="text-xs font-bold px-2 text-[var(--accent)] tracking-widest group-hover:text-[var(--text)] transition-colors duration-300 uppercase">
+            [ EDUCATION ]
+          </legend>
+          <div className="text-sm space-y-2 mt-1">
             <div>
               <p className="font-semibold">Universitas Sumatera Utara</p>
               <p className="text-[var(--muted)]">B.Sc. Computer Science — GPA 3.78/4.00 (CumLaude) · 2021–2025</p>
@@ -87,12 +93,14 @@ export default function AboutPage() {
               <p className="text-[var(--muted)]">Student Mobility / MBKM Humanitarian Initiative · 2023–2024</p>
             </div>
           </div>
-        </section>
+        </fieldset>
 
         {/* Quick Trivia - Accordion */}
-        <section className="mb-12">
-          <p className="text-xs font-bold mb-3 text-[var(--accent)] tracking-widest">QUICK TRIVIA</p>
-          <div className="border-t border-[var(--border)]">
+        <fieldset className="mb-12 border border-[var(--border)] p-5 pt-3 hover:border-[var(--accent)] transition-colors duration-300 group rounded-sm">
+          <legend className="text-xs font-bold px-2 text-[var(--accent)] tracking-widest group-hover:text-[var(--text)] transition-colors duration-300 uppercase">
+            [ QUICK TRIVIA ]
+          </legend>
+          <div className="border-t border-[var(--border)] mt-1">
             <AccordionItem title="expand trivia . . .">
               <ul className="space-y-1">
                 {TRIVIA.map((t) => (
@@ -101,7 +109,7 @@ export default function AboutPage() {
               </ul>
             </AccordionItem>
           </div>
-        </section>
+        </fieldset>
 
         <footer className="pt-6 border-t border-dashed border-[var(--border)] text-xs text-[var(--muted)]">
           © 2026 kimsang silalahi.

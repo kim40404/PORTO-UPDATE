@@ -1,120 +1,340 @@
 import { Nav } from "@/components/Nav";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import React from "react";
+
+/* ─── Reusable components ─────────────────────────────────────────── */
+
+function Section({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="my-8">
+      <p className="text-[10px] font-black tracking-[0.2em] uppercase text-[var(--accent)] mb-4 flex items-center gap-3">
+        <span className="flex-1 h-px bg-[var(--border)]" />
+        {label}
+        <span className="flex-1 h-px bg-[var(--border)]" />
+      </p>
+      {children}
+    </div>
+  );
+}
+
+function Callout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="border-l-2 border-[var(--accent)] pl-4 py-1 my-6 text-sm text-[var(--muted)] italic leading-relaxed">
+      {children}
+    </div>
+  );
+}
+
+function CodeBlock({ code }: { code: string }) {
+  return (
+    <pre className="relative bg-[var(--bg)] border border-[var(--border)] rounded-sm p-5 text-xs overflow-x-auto leading-relaxed my-4 font-mono">
+      <span className="absolute top-2 right-3 text-[9px] tracking-widest text-[var(--muted)] uppercase font-bold">code</span>
+      {code}
+    </pre>
+  );
+}
+
+function KeyPoint({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="border border-[var(--border)] p-3 hover:border-[var(--accent)] transition-colors duration-300">
+      <p className="text-[9px] font-black tracking-widest uppercase text-[var(--muted)] mb-1">{label}</p>
+      <p className="text-sm font-bold text-[var(--text)]">{value}</p>
+    </div>
+  );
+}
+
+/* ─── Post content ────────────────────────────────────────────────── */
 
 const POSTS: Record<string, {
   date: string;
+  readTime: string;
   title: string;
   tags: string[];
   content: React.ReactNode;
 }> = {
   "synthesizing-agentic-data": {
     date: "Aug 12, 2026",
-    title: "Synthesizing 1K Agentic Data Locally via Ollama",
+    readTime: "5 min read",
+    title: "Synthesizing 1K Agentic AI Data Locally via Ollama",
     tags: ["AI", "Dataset", "Ollama"],
     content: (
-      <article className="text-sm leading-relaxed space-y-4 text-[var(--text)]">
+      <article className="text-sm leading-relaxed text-[var(--text)] space-y-5">
+
+        {/* Key stats */}
+        <div className="grid grid-cols-3 gap-3 my-6">
+          <KeyPoint label="Items" value="1,182 pairs" />
+          <KeyPoint label="Cost" value="Rp 0 (free)" />
+          <KeyPoint label="Languages" value="ID + EN" />
+        </div>
+
         <p>
-          When I started building the bilingual agentic AI dataset, I had two hard constraints: 
-          (1) No budget for OpenAI/Anthropic API calls, and (2) The data needed to be genuinely diverse 
-          across 8 complex agentic categories.
+          When I started building a bilingual agentic AI dataset, I had two hard constraints: no budget
+          for commercial API calls, and the data needed to be genuinely diverse across 8 complex
+          agentic task categories — not just basic Q&A.
         </p>
-        <p>
-          The solution was running <span className="text-[var(--accent)]">Ollama</span> locally with 
-          open-source models like Mistral and Llama 3. The cost? Zero rupiah. The output? 
-          A 1,182-item bilingual (ID-EN) instruction-response dataset now published openly on Hugging Face.
-        </p>
-        <p className="text-[var(--muted)] text-xs font-bold tracking-wider">THE PIPELINE</p>
-        <pre className="bg-[var(--border)] p-4 text-xs overflow-x-auto">
-{`# Simplified synthesis loop
+
+        <Callout>
+          The challenge wasn&apos;t generating text. It was generating <em>structured, high-quality
+          instruction-response pairs</em> that could serve as reliable training signal for agentic models.
+        </Callout>
+
+        <Section label="The Architecture">
+          <p className="text-sm leading-relaxed mb-4">
+            The solution: run <strong className="text-[var(--accent)]">Ollama</strong> locally with
+            Mistral-7B and Llama 3. These models are capable enough when prompted correctly. The pipeline
+            was simple but deliberately designed:
+          </p>
+          <CodeBlock code={`# Core synthesis loop
 for category in AGENTIC_CATEGORIES:
-    for _ in range(ITEMS_PER_CATEGORY):
-        prompt = build_prompt(category, lang="id")
-        response = ollama.generate(model="mistral", prompt=prompt)
-        dataset.append({"input": prompt, "output": response})`}
-        </pre>
+    for _ in range(TARGET_PER_CATEGORY):
+        prompt = build_template(category, lang="id")
+        response = ollama.generate(
+            model="mistral",
+            prompt=prompt,
+            options={"temperature": 0.8}
+        )
+        entry = validate_and_clean(response)
+        if entry: dataset.append(entry)`} />
+        </Section>
+
+        <Section label="The 8 Agentic Categories">
+          <ul className="space-y-2 text-sm">
+            {[
+              "Tool Use & Function Calling",
+              "Multi-step Planning & Reasoning",
+              "Memory Retrieval & Summarization",
+              "Web Search Simulation",
+              "Code Generation & Debugging",
+              "Document Analysis",
+              "Decision Making Under Uncertainty",
+              "Cross-lingual Instruction Following",
+            ].map((cat, i) => (
+              <li key={cat} className="flex gap-3 items-start">
+                <span className="text-[var(--accent)] font-mono text-[10px] mt-0.5 shrink-0">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span>{cat}</span>
+              </li>
+            ))}
+          </ul>
+        </Section>
+
         <p>
-          The key insight: high-quality <strong>prompt templates</strong> per category 
-          matter far more than which model you use. Structure your prompts well, and any 
-          capable 7B model will produce publishable data.
+          The key insight: prompt template quality matters far more than model size. A well-structured
+          template forces the model to produce consistent, schema-valid outputs. I spent roughly 60%
+          of my time refining templates — not running the pipeline.
         </p>
-        <p>
-          The dataset is now indexed on Hugging Face and being used by other researchers 
-          for cross-lingual agentic model evaluation. That&apos;s the power of open publishing.
-        </p>
+
+        <Section label="What I Learned">
+          <p className="text-sm leading-relaxed">
+            Open-source LLMs at 7B parameters are more than capable of producing publishable
+            research-grade data when you constrain the output format precisely. The dataset is now
+            live on <strong className="text-[var(--accent)]">Hugging Face</strong> and is being
+            actively used by researchers for cross-lingual agentic model evaluation. Open publishing
+            compounds — one dataset becomes 10 citations becomes a reputation.
+          </p>
+        </Section>
       </article>
     ),
   },
+
   "ai-citation-optimization": {
     date: "Jul 20, 2026",
+    readTime: "4 min read",
     title: "The Mechanics of AI Citation Optimization (AIO)",
     tags: ["LLM", "SEO", "CiteReady"],
     content: (
-      <article className="text-sm leading-relaxed space-y-4 text-[var(--text)]">
+      <article className="text-sm leading-relaxed text-[var(--text)] space-y-5">
+
+        <div className="grid grid-cols-2 gap-3 my-6">
+          <KeyPoint label="Old paradigm" value="Google PageRank" />
+          <KeyPoint label="New paradigm" value="LLM Citation Rank" />
+        </div>
+
         <p>
-          Traditional SEO optimizes for Google&apos;s PageRank algorithm. AI Citation Optimization (AIO) 
-          optimizes for how <strong>LLMs decide what to cite</strong> — a fundamentally different problem.
+          Traditional SEO is about ranking higher on Google&apos;s blue links. AI Citation
+          Optimization (AIO) is a different game entirely: it&apos;s about being the source
+          that <strong>LLMs choose to quote</strong> when a user asks a question.
         </p>
-        <p>
-          When ChatGPT or Perplexity answers a question, they pull from their retrieval context. 
-          The content that gets cited isn&apos;t necessarily the content that ranks highest on Google. 
-          It&apos;s the content that is most <span className="text-[var(--accent)]">structurally clear</span>, 
-          factually dense, and contextually relevant to the LLM&apos;s query interpretation.
-        </p>
-        <p className="text-[var(--muted)] text-xs font-bold tracking-wider">THE THREE PILLARS OF AIO</p>
-        <ul className="space-y-2 list-none">
-          <li>— <strong>Density:</strong> Pack factual, entity-rich information into short paragraphs</li>
-          <li>— <strong>Structure:</strong> Use clear H2/H3 headings that match natural query phrasing</li>
-          <li>— <strong>Authority Signals:</strong> Reference numbers, dates, and named sources frequently</li>
-        </ul>
-        <p>
-          This is the core logic behind <span className="text-[var(--accent)]">CiteReady</span> — 
-          it audits your content against these three pillars and suggests restructuring that improves 
-          your citation probability in AI-driven search results.
-        </p>
+
+        <Callout>
+          ChatGPT doesn&apos;t care if you have 10,000 backlinks. It cares if your content is
+          structurally clear, factually dense, and maps precisely to how it frames the question.
+        </Callout>
+
+        <Section label="Why AIO is Different">
+          <p className="text-sm leading-relaxed mb-4">
+            When Perplexity or Gemini answer a query, they run a retrieval step over indexed web
+            content. What gets retrieved — and then cited — is determined by semantic similarity
+            to the query, not domain authority. This creates a completely new content optimization
+            surface.
+          </p>
+          <p className="text-sm leading-relaxed">
+            I built <strong className="text-[var(--accent)]">CiteReady</strong> after observing
+            this pattern: high-authority sites were being ignored by AI search, while smaller,
+            well-structured pages were consistently cited. The differentiator wasn&apos;t traffic.
+            It was architecture.
+          </p>
+        </Section>
+
+        <Section label="The Three Pillars of AIO">
+          <div className="space-y-4">
+            {[
+              {
+                num: "01",
+                title: "Density",
+                desc: "Pack factual, entity-rich information into short paragraphs. LLMs prefer 2-3 sentence chunks with high information density over long flowing prose.",
+              },
+              {
+                num: "02",
+                title: "Structure",
+                desc: "Use clear H2/H3 headings that mirror natural query phrasing. 'What is X?' pages outperform 'Understanding X' pages in AI citation 3:1.",
+              },
+              {
+                num: "03",
+                title: "Authority Signals",
+                desc: "Reference specific numbers, dates, named studies, and sourced statistics. LLMs weight content with verifiable specifics far above generic claims.",
+              },
+            ].map((p) => (
+              <div key={p.num} className="flex gap-4 items-start border border-[var(--border)] p-4 hover:border-[var(--accent)] transition-colors duration-300">
+                <span className="text-2xl font-black text-[var(--border)] shrink-0 leading-none">{p.num}</span>
+                <div>
+                  <p className="font-bold text-[var(--text)] mb-1">{p.title}</p>
+                  <p className="text-[var(--muted)] text-xs leading-relaxed">{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section label="CiteReady in Practice">
+          <p className="text-sm leading-relaxed">
+            CiteReady scores your content across these three pillars and outputs a GEO
+            (Generative Engine Optimization) score. It then suggests concrete rewrites — not
+            vague advice, but actual structural changes that increase the probability of being
+            cited. This is the new frontier of content strategy, and most teams haven&apos;t
+            caught up yet.
+          </p>
+        </Section>
       </article>
     ),
   },
+
   "production-mlops": {
     date: "Jun 05, 2026",
-    title: "Designing Production-Ready MLOps with Grafana and Prometheus",
+    readTime: "6 min read",
+    title: "Designing Production-Ready MLOps with Grafana & Prometheus",
     tags: ["MLOps", "Docker", "Monitoring"],
     content: (
-      <article className="text-sm leading-relaxed space-y-4 text-[var(--text)]">
+      <article className="text-sm leading-relaxed text-[var(--text)] space-y-5">
+
+        <div className="grid grid-cols-3 gap-3 my-6">
+          <KeyPoint label="Stack" value="MLflow + FastAPI" />
+          <KeyPoint label="Monitoring" value="Prometheus + Grafana" />
+          <KeyPoint label="Infra" value="Docker" />
+        </div>
+
         <p>
-          Most ML tutorials stop at model training. But training is 10% of the work — 
-          the other 90% is making sure the model doesn&apos;t silently fail in production.
+          Most ML tutorials end at model training. But training is 10% of the work — the remaining
+          90% is keeping the model alive, accurate, and observable in production. This is where
+          most ML engineers drop the ball.
         </p>
+
+        <Callout>
+          A model that silently degrades is worse than a model that openly fails. Silent failure
+          means weeks of bad predictions before anyone notices. Monitoring is not optional.
+        </Callout>
+
+        <Section label="The Full Stack">
+          <CodeBlock code={`┌─────────────────────────────────────────────┐
+│                   REQUEST                    │
+└──────────────────────┬──────────────────────┘
+                       ↓
+          ┌────────────────────────┐
+          │   FastAPI REST Server  │
+          │   /predict endpoint    │
+          └────────────┬───────────┘
+                       ↓
+          ┌────────────────────────┐
+          │   MLflow Model Store   │
+          │   Registered + Versioned│
+          └────────────┬───────────┘
+                       ↓
+          ┌────────────────────────┐
+          │  Prometheus Scraper    │
+          │  (every 60 seconds)    │
+          └────────────┬───────────┘
+                       ↓
+          ┌────────────────────────┐
+          │   Grafana Dashboard    │
+          │   + Drift Alerts       │
+          └────────────────────────┘`} />
+        </Section>
+
+        <Section label="Why Drift Detection Matters">
+          <p className="text-sm leading-relaxed mb-4">
+            The most important metric to track isn&apos;t accuracy on your test set. It&apos;s
+            <strong> prediction drift</strong> — the divergence between your training data
+            distribution and the live data your model is seeing in production.
+          </p>
+          <p className="text-sm leading-relaxed">
+            For the Telco Churn project, I tracked two signals: the distribution of predicted
+            probabilities (confidence drift) and the feature value distributions (data drift).
+            When either deviated beyond a threshold, Grafana fired a Slack alert automatically.
+          </p>
+        </Section>
+
+        <Section label="The Setup in Three Steps">
+          <div className="space-y-4">
+            {[
+              {
+                step: "01",
+                title: "Instrument FastAPI",
+                desc: "Expose a /metrics endpoint using the prometheus-fastapi-instrumentator library. This auto-tracks request latency, prediction count, and model confidence.",
+                code: `from prometheus_fastapi_instrumentator import Instrumentator
+Instrumentator().instrument(app).expose(app)`,
+              },
+              {
+                step: "02",
+                title: "Configure Prometheus",
+                desc: "Point Prometheus at your FastAPI /metrics endpoint with a 60-second scrape interval.",
+                code: `scrape_configs:
+  - job_name: 'churn_model'
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['fastapi:8000']`,
+              },
+              {
+                step: "03",
+                title: "Build the Grafana Dashboard",
+                desc: "Import a standard FastAPI dashboard JSON, then add a custom panel for prediction confidence percentiles. Set an alert when p10 confidence drops below 0.55.",
+                code: null,
+              },
+            ].map((s) => (
+              <div key={s.step} className="border-l-2 border-[var(--border)] pl-4 hover:border-[var(--accent)] transition-colors duration-300">
+                <div className="flex gap-2 items-center mb-1">
+                  <span className="text-[var(--accent)] font-mono text-[10px] font-black">{s.step}</span>
+                  <p className="font-bold">{s.title}</p>
+                </div>
+                <p className="text-[var(--muted)] text-xs leading-relaxed mb-2">{s.desc}</p>
+                {s.code && <CodeBlock code={s.code} />}
+              </div>
+            ))}
+          </div>
+        </Section>
+
         <p>
-          For the Telco Churn Prediction project, I built a complete MLOps stack from scratch: 
-          MLflow for experiment tracking, FastAPI for serving, Docker for portability, 
-          and Prometheus + Grafana for real-time monitoring.
-        </p>
-        <p className="text-[var(--muted)] text-xs font-bold tracking-wider">ARCHITECTURE OVERVIEW</p>
-        <pre className="bg-[var(--border)] p-4 text-xs overflow-x-auto">
-{`┌─────────────┐    ┌──────────┐    ┌─────────────┐
-│  MLflow     │───▶│ FastAPI  │───▶│ Prometheus  │
-│  Tracking   │    │  Server  │    │  + Grafana  │
-└─────────────┘    └──────────┘    └─────────────┘
-                        │
-                    ┌───┴───┐
-                    │ Docker │
-                    └───────┘`}
-        </pre>
-        <p>
-          The key metric to monitor isn&apos;t just accuracy — it&apos;s <strong>prediction drift</strong>. 
-          When real-world data distribution shifts from training data, your model silently degrades. 
-          Prometheus scrapes model confidence distributions every 60 seconds. 
-          Grafana fires alerts when drift exceeds threshold.
-        </p>
-        <p>
-          This single addition — real-time drift monitoring — is what separates a toy ML project 
-          from a production-grade system.
+          This single addition — real-time drift monitoring — is the difference between a toy
+          project and a production-grade ML system. Every model you ship deserves an observable
+          lifecycle, not just a one-time deployment.
         </p>
       </article>
     ),
   },
 };
+
+/* ─── Page ────────────────────────────────────────────────────────── */
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -124,39 +344,53 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <>
       <Nav />
-      <main className="max-w-2xl mx-auto px-6 pt-24 pb-20">
+      <main className="max-w-2xl mx-auto px-6 pt-24 pb-20 animate-fade-in">
+
         {/* Breadcrumb */}
-        <p className="text-xs text-[var(--muted)] mb-6">
-          <Link href="/blog" className="hover:text-[var(--accent)] hover:underline">blog</Link>
-          {" / "}{slug}
+        <p className="text-[10px] tracking-widest uppercase text-[var(--muted)] mb-10 font-bold">
+          <Link href="/blog" className="hover:text-[var(--accent)] transition-colors duration-200">
+            blog
+          </Link>
+          {" / "}
+          <span className="text-[var(--text)]">{slug}</span>
         </p>
 
         {/* Header */}
-        <div className="mb-8 pb-6 border-b border-[var(--border)]">
-          <h1 className="text-xl font-bold mb-3 underline underline-offset-4">{post.title}</h1>
+        <div className="mb-10 pb-8 border-b border-[var(--border)]">
+          <h1 className="text-2xl font-black mb-5 leading-tight tracking-tight text-[var(--text)]">
+            {post.title}
+          </h1>
+
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-xs text-[var(--muted)]">{post.date}</span>
-            {post.tags.map((t) => (
-              <span key={t} className="text-xs border border-[var(--border)] px-1.5 py-0.5 text-[var(--muted)]">
-                {t}
-              </span>
-            ))}
+            <span className="text-[10px] font-mono text-[var(--muted)]">{post.date}</span>
+            <span className="text-[var(--border)]">—</span>
+            <span className="text-[10px] font-mono text-[var(--muted)]">{post.readTime}</span>
+            <div className="flex gap-2 ml-2">
+              {post.tags.map((t) => (
+                <span
+                  key={t}
+                  className="text-[9px] font-black tracking-widest uppercase border border-[var(--accent)] px-2 py-0.5 rounded-full text-[var(--accent)]"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Content */}
         {post.content}
 
-        {/* Navigation */}
-        <div className="mt-12 pt-6 border-t border-dashed border-[var(--border)]">
-          <Link href="/blog" className="text-sm text-[var(--muted)] hover:text-[var(--accent)] hover:underline">
-            ← back to blog
+        {/* Footer nav */}
+        <div className="mt-14 pt-6 border-t border-dashed border-[var(--border)] flex items-center justify-between">
+          <Link
+            href="/blog"
+            className="text-xs font-bold tracking-wider text-[var(--muted)] hover:text-[var(--accent)] transition-colors duration-200"
+          >
+            ← ALL ARTICLES
           </Link>
+          <span className="text-[10px] text-[var(--muted)]">© 2026 kimsang silalahi.</span>
         </div>
-
-        <footer className="mt-6 text-xs text-[var(--muted)]">
-          © 2026 kimsang silalahi.
-        </footer>
       </main>
     </>
   );

@@ -40,9 +40,11 @@ export default function Home() {
         </div>
 
         {/* Profile Box */}
-        <div className="mb-8 border border-[var(--border)] p-4">
-          <p className="text-xs font-bold mb-2 text-[var(--accent)] tracking-widest">PROFILE</p>
-          <p className="text-sm text-[var(--text)] leading-relaxed">
+        <fieldset className="mb-8 border border-[var(--border)] p-5 pt-3 hover:border-[var(--accent)] transition-colors duration-300 group rounded-sm">
+          <legend className="text-xs font-bold px-2 text-[var(--accent)] tracking-widest group-hover:text-[var(--text)] transition-colors duration-300">
+            [ PROFILE ]
+          </legend>
+          <p className="text-sm text-[var(--text)] leading-relaxed mt-1">
             An AI Engineer and CS graduate (GPA 3.78/4.00, CumLaude, Universitas Sumatera Utara)
             specializing in LLM applications, RAG systems, and agentic AI pipelines. Certified by Anthropic Academy (18/18 courses).
             I build data-driven intelligent solutions and production-ready MLOps pipelines.
@@ -52,16 +54,18 @@ export default function Home() {
             </Link>{" "}
             page
           </p>
-        </div>
+        </fieldset>
 
         {/* Recent Posts */}
-        <section className="mb-8">
-          <p className="text-xs font-bold mb-3 text-[var(--accent)] tracking-widest">RECENT POSTS</p>
-          <ul className="space-y-1">
+        <fieldset className="mb-8 border border-[var(--border)] p-5 pt-3 hover:border-[var(--accent)] transition-colors duration-300 group rounded-sm">
+          <legend className="text-xs font-bold px-2 text-[var(--accent)] tracking-widest group-hover:text-[var(--text)] transition-colors duration-300">
+            [ RECENT POSTS ]
+          </legend>
+          <ul className="space-y-2 mt-1">
             {RECENT_POSTS.map((post) => (
               <li key={post.href} className="text-sm">
-                <Link href={post.href} className="flex flex-col sm:flex-row sm:gap-4 hover:text-[var(--accent)] group">
-                  <span className="shrink-0 text-[var(--muted)] group-hover:text-[var(--accent)]">- {post.date}</span>
+                <Link href={post.href} className="flex flex-col sm:flex-row sm:gap-4 hover:!text-[var(--accent)] transition-colors duration-200 group">
+                  <span className="shrink-0 text-[var(--muted)] group-hover:!text-[var(--accent)] transition-colors duration-200">- {post.date}</span>
                   <span className="underline-offset-2 group-hover:underline">{post.title}</span>
                 </Link>
               </li>
@@ -70,12 +74,14 @@ export default function Home() {
           <Link href="/blog" className="text-sm text-[var(--muted)] hover:!text-[var(--accent)] transition-colors duration-200 mt-3 block">
             [read more...] →
           </Link>
-        </section>
+        </fieldset>
 
         {/* Social Links */}
-        <section className="mb-8">
-          <p className="text-xs font-bold mb-3 text-[var(--accent)] tracking-widest">LINKS</p>
-          <ul className="space-y-1 text-sm">
+        <fieldset className="mb-8 border border-[var(--border)] p-5 pt-3 hover:border-[var(--accent)] transition-colors duration-300 group rounded-sm">
+          <legend className="text-xs font-bold px-2 text-[var(--accent)] tracking-widest group-hover:text-[var(--text)] transition-colors duration-300">
+            [ LINKS ]
+          </legend>
+          <ul className="space-y-2 text-sm mt-1">
             {[
               { label: "GitHub", href: "https://github.com/kim40404" },
               { label: "Hugging Face", href: "https://huggingface.co/kimsangsilalahi" },
@@ -94,7 +100,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
-        </section>
+        </fieldset>
 
         {/* Footer */}
         <footer className="pt-4 border-t border-dashed border-[var(--border)] text-xs text-[var(--muted)]">
