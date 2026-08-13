@@ -30,7 +30,7 @@ const PROJECTS = {
     },
     {
       title: "IoT Honey Quality Monitoring",
-      image: "/IoT.png",
+      image: "/Honey_Quality.png",
       href: "https://beemy-fe0b9.web.app/",
       repo: "",
       desc: "Real-time 5-sensor IoT system with K-NN classifier achieving 88.25% predictive accuracy across all test batches. Hardware includes ESP32, DHT22, MQ-135, TDS, and LDR sensors.",
