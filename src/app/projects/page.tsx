@@ -63,7 +63,7 @@ export default function ProjectsPage() {
   return (
     <>
       <Nav />
-      <main className="max-w-lg mx-auto px-6 pt-24 pb-20">
+      <main className="max-w-lg mx-auto px-6 pt-24 pb-20 animate-fade-in">
         <h1 className="text-2xl font-bold mb-2 underline underline-offset-4">projects .</h1>
         <p className="text-xs text-[var(--muted)] mb-8">/ projects — things I&apos;ve built</p>
 

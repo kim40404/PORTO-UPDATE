@@ -30,7 +30,7 @@ export function Nav() {
           <Link
             key={href}
             href={href}
-            className={`text-sm shrink-0 hover:text-[var(--accent)] transition-none ${
+            className={`text-sm shrink-0 transition-colors duration-200 hover:!text-[var(--accent)] ${
               isActive(href)
                 ? "text-[var(--accent)] underline underline-offset-4"
                 : "text-[var(--muted)]"
@@ -46,7 +46,7 @@ export function Nav() {
         {mounted ? (
           <button
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            className="text-sm text-[var(--muted)] hover:text-[var(--accent)] transition-none"
+            className="text-sm text-[var(--muted)] hover:!text-[var(--accent)] transition-colors duration-200"
           >
             {resolvedTheme === "dark" ? "[light]" : "[dark]"}
           </button>

@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Nav />
       {/* Narrower: max-w-lg = 576px, centered */}
-      <main className="max-w-lg mx-auto px-6 pt-16 pb-12">
+      <main className="max-w-lg mx-auto px-6 pt-16 pb-12 animate-fade-in">
 
         {/* Heading */}
         <h1 className="text-2xl font-bold mb-2 underline underline-offset-4">
@@ -67,7 +67,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <Link href="/blog" className="text-sm text-[var(--muted)] hover:text-[var(--accent)] mt-3 block">
+          <Link href="/blog" className="text-sm text-[var(--muted)] hover:!text-[var(--accent)] transition-colors duration-200 mt-3 block">
             [read more...] →
           </Link>
         </section>
@@ -87,7 +87,7 @@ export default function Home() {
                   href={href}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
-                  className="hover:text-[var(--accent)] hover:underline underline-offset-2"
+                  className="hover:!text-[var(--accent)] transition-colors duration-200 hover:underline underline-offset-2"
                 >
                   → {label}
                 </a>

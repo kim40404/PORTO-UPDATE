@@ -29,7 +29,7 @@ export default function BlogPage() {
   return (
     <>
       <Nav />
-      <main className="max-w-2xl mx-auto px-6 pt-24 pb-20">
+      <main className="max-w-2xl mx-auto px-6 pt-24 pb-20 animate-fade-in">
         <h1 className="text-3xl font-bold mb-2 underline underline-offset-4 tracking-tight">blog .</h1>
         <p className="text-sm text-[var(--muted)] mb-12 border-l-2 border-[var(--accent)] pl-3">/ technical writings, notes, and unstructured thoughts</p>
 
