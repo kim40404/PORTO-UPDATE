@@ -1,5 +1,11 @@
 import { Nav } from "@/components/Nav";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Read Kimsang Silalahi's technical writings, notes, and unstructured thoughts on AI, MLOps, and System Design.",
+};
 
 const POSTS = [
   {

@@ -1,4 +1,10 @@
 import { Nav } from "@/components/Nav";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "Explore Kimsang Silalahi's portfolio of AI applications, RAG pipelines, MLOps, and full-stack software development projects.",
+};
 
 import Image from "next/image";
 

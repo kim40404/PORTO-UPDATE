@@ -1,5 +1,11 @@
 import { Nav } from "@/components/Nav";
 import { AccordionItem } from "@/components/Accordion";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Learn more about Kimsang Silalahi's background, education, and technical experience in AI engineering.",
+};
 
 const TECH_STACK = [
   { cat: "AI & LLM", items: "Claude API · OpenAI API · LangChain · RAG · Prompt Engineering · PyTorch · Scikit-Learn · Hugging Face · Fine-Tuning" },
