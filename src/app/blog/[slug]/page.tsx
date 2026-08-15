@@ -238,13 +238,34 @@ for category in AGENTIC_CATEGORIES:
         <p>
           Most ML tutorials end at model training. But training is 10% of the work — the remaining
           90% is keeping the model alive, accurate, and observable in production. This is where
-          most ML engineers drop the ball.
+          most ML projects fail. I built an end-to-end MLOps pipeline for Telco Churn Prediction to demonstrate how to cross that gap.
         </p>
 
         <Callout>
           A model that silently degrades is worse than a model that openly fails. Silent failure
           means weeks of bad predictions before anyone notices. Monitoring is not optional.
         </Callout>
+
+        <div className="flex flex-col sm:flex-row gap-4 my-8">
+          <a
+            href="https://dev.to/kim40404/from-jupyter-notebook-to-production-building-an-enterprise-mlops-pipeline-for-churn-prediction-jk3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 text-xs font-bold tracking-wider text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black border border-[var(--accent)] px-4 py-3 flex items-center justify-center gap-2 transition-colors"
+          >
+            <span>READ FULL ARTICLE ON DEV.TO</span>
+            <span>→</span>
+          </a>
+          <a
+            href="https://github.com/kim40404/mlops-churn-dicoding"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 text-xs font-bold tracking-wider text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent)] border border-[var(--border)] px-4 py-3 flex items-center justify-center gap-2 transition-colors"
+          >
+            <span>VIEW GITHUB REPO</span>
+            <span>↗</span>
+          </a>
+        </div>
 
         <Section label="The Full Stack">
           <CodeBlock code={`┌─────────────────────────────────────────────┐
@@ -292,18 +313,13 @@ for category in AGENTIC_CATEGORIES:
                 step: "01",
                 title: "Instrument FastAPI",
                 desc: "Expose a /metrics endpoint using the prometheus-fastapi-instrumentator library. This auto-tracks request latency, prediction count, and model confidence.",
-                code: `from prometheus_fastapi_instrumentator import Instrumentator
-Instrumentator().instrument(app).expose(app)`,
+                code: `from prometheus_fastapi_instrumentator import Instrumentator\nInstrumentator().instrument(app).expose(app)`,
               },
               {
                 step: "02",
                 title: "Configure Prometheus",
                 desc: "Point Prometheus at your FastAPI /metrics endpoint with a 60-second scrape interval.",
-                code: `scrape_configs:
-  - job_name: 'churn_model'
-    scrape_interval: 60s
-    static_configs:
-      - targets: ['fastapi:8000']`,
+                code: `scrape_configs:\n  - job_name: 'churn_model'\n    scrape_interval: 60s\n    static_configs:\n      - targets: ['fastapi:8000']`,
               },
               {
                 step: "03",
