@@ -39,14 +39,16 @@ export function Nav() {
             {label}
           </Link>
         ))}
-        
-        {/* Distinct Download CV Button */}
+      </div>
+
+      {/* Distinct Download CV Button (Offset Right) */}
+      <div className="hidden sm:block absolute right-24 top-6">
         <a 
           href="/Kimsang_Silalahi_CV.pdf"
           download="Kimsang_Silalahi_CV.pdf"
-          className="text-xs shrink-0 font-bold border border-[var(--border)] px-2 py-1 mt-[2px] rounded-sm text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors duration-200 uppercase tracking-widest"
+          className="text-xs font-bold border border-[var(--accent)] bg-[var(--bg)] px-3 py-1 rounded-sm text-[var(--accent)] transition-all duration-300 shadow-[3px_3px_0px_0px_var(--accent)] hover:shadow-[0px_0px_0px_0px_var(--accent)] hover:translate-x-[3px] hover:translate-y-[3px] uppercase tracking-widest"
         >
-          [ CV ]
+          GET CV
         </a>
       </div>
 
