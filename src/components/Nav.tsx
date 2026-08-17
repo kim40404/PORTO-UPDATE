@@ -39,6 +39,15 @@ export function Nav() {
             {label}
           </Link>
         ))}
+        
+        {/* Distinct Download CV Button */}
+        <a 
+          href="/Kimsang_Silalahi_CV.pdf"
+          download="Kimsang_Silalahi_CV.pdf"
+          className="text-xs shrink-0 font-bold border border-[var(--border)] px-2 py-1 mt-[2px] rounded-sm text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors duration-200 uppercase tracking-widest"
+        >
+          [ CV ]
+        </a>
       </div>
 
       {/* Theme toggle — inline on mobile right, absolute right on desktop */}

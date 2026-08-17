@@ -86,13 +86,11 @@ export default function Home() {
               { label: "GitHub", href: "https://github.com/kim40404" },
               { label: "Hugging Face", href: "https://huggingface.co/kimsangsilalahi" },
               { label: "LinkedIn", href: "https://www.linkedin.com/in/kimsang-silalahi-3a8b13308/" },
-              { label: "Download CV (PDF)", href: "/Kimsang_Silalahi_CV.pdf", download: "Kimsang_Silalahi_CV.pdf" },
               { label: "Email — kimsilalahi@gmail.com", href: "mailto:kimsilalahi@gmail.com" },
-            ].map(({ label, href, download }) => (
+            ].map(({ label, href }) => (
               <li key={label}>
                 <a
                   href={href}
-                  download={download}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className="hover:!text-[var(--accent)] transition-colors duration-200 hover:underline underline-offset-2"
