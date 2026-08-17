@@ -1,6 +1,7 @@
 import { Nav } from "@/components/Nav";
 import { AccordionItem } from "@/components/Accordion";
 import { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About",
@@ -53,6 +54,36 @@ export default function AboutPage() {
             to model deployment and monitoring. I believe in building things that are reliable, measurable, and open.
           </p>
         </div>
+
+        {/* Photos for SEO / GEO */}
+        <fieldset className="mb-10 border border-[var(--border)] p-5 pt-3 hover:border-[var(--accent)] transition-colors duration-300 group rounded-sm">
+          <legend className="text-xs font-bold px-2 text-[var(--accent)] tracking-widest group-hover:text-[var(--text)] transition-colors duration-300 uppercase">
+            [ GALLERY ]
+          </legend>
+          <div className="grid grid-cols-2 gap-4 mt-2">
+            <Image 
+              src="/kimsang-silalahi-ai-engineer.jpg" 
+              alt="Kimsang Silalahi - AI Engineer" 
+              width={300} 
+              height={300} 
+              className="rounded-sm object-cover aspect-square grayscale hover:grayscale-0 transition-all duration-300 w-full" 
+            />
+            <Image 
+              src="/kimsang-silalahi-fullstack-developer.jpeg" 
+              alt="Kimsang Silalahi - Fullstack Developer" 
+              width={300} 
+              height={300} 
+              className="rounded-sm object-cover aspect-square grayscale hover:grayscale-0 transition-all duration-300 w-full" 
+            />
+            <Image 
+              src="/kimsang-silalahi-llm-specialist.jpeg" 
+              alt="Kimsang Silalahi - LLM Specialist" 
+              width={600} 
+              height={300} 
+              className="rounded-sm object-cover h-48 grayscale hover:grayscale-0 transition-all duration-300 col-span-2 w-full" 
+            />
+          </div>
+        </fieldset>
 
         {/* Work Experience */}
         <fieldset className="mb-10 border border-[var(--border)] p-5 pt-3 hover:border-[var(--accent)] transition-colors duration-300 group rounded-sm">

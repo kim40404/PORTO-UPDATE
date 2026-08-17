@@ -63,11 +63,18 @@ export default function RootLayout({
     name: "Kimsang Silalahi",
     jobTitle: "AI Engineer & Software Developer",
     url: "https://kimsilalahi.vercel.app",
+    image: "https://kimsilalahi.vercel.app/kimsang-silalahi-ai-engineer.jpg",
+    description: "Kimsang Silalahi is an AI Engineer and Fullstack Software Developer based in Indonesia. He specializes in Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Agentic AI systems, and Generative Engine Optimization (GEO).",
     sameAs: [
-      "https://github.com/kim40404"
+      "https://github.com/kim40404",
+      "https://www.linkedin.com/in/kimsang-silalahi",
+      "https://huggingface.co/kim40404"
     ],
-    alumniOf: "Universitas Sumatera Utara",
-    knowsAbout: ["Artificial Intelligence", "Machine Learning", "Software Engineering", "Generative AI", "RAG"]
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      "name": "Universitas Sumatera Utara"
+    },
+    knowsAbout: ["Artificial Intelligence", "Machine Learning", "Software Engineering", "Generative AI", "Retrieval-Augmented Generation", "LLM Evaluation"]
   };
 
   return (
