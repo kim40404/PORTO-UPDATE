@@ -80,7 +80,7 @@ export default function AboutPage() {
               alt="Kimsang Silalahi - LLM Specialist" 
               width={600} 
               height={300} 
-              className="rounded-sm object-cover h-48 grayscale hover:grayscale-0 transition-all duration-300 col-span-2 w-full" 
+              className="rounded-sm object-cover object-top h-72 grayscale hover:grayscale-0 transition-all duration-300 col-span-2 w-full" 
             />
           </div>
         </fieldset>
