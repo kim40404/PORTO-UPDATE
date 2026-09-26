@@ -23,6 +23,7 @@ Kimsang_Silalahi_CV.pdf
 Kimsang_Silalahi_CV_2026_Final.docx
 CV.MD
 *.pdf
+!develop-cinematic-3d-portfolio/public/Kimsang_Silalahi_CV.pdf
 
 # Duplicate / unused hero variants
 public/hero\ -\ Copy*.png

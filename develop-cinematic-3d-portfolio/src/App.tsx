@@ -138,8 +138,7 @@ type Project = {
   disclaimer?: string;
 };
 
-const canonicalUrl = "https://kimsilalahi.vercel.app";
-const cvUrl = `${canonicalUrl}/Kimsang_Silalahi_CV.pdf`;
+const cvUrl = "/Kimsang_Silalahi_CV.pdf";
 const githubUrl = "https://github.com/kim40404";
 const huggingFaceUrl = "https://huggingface.co/kimsangsilalahi";
 const linkedInUrl = "https://www.linkedin.com/in/kimsang-silalahi-3a8b13308/";
