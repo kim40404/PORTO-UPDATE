@@ -4,15 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "npm run dev --workspace=react-vite-tailwind",
+    "build": "npm run build --workspace=react-vite-tailwind",
+    "start": "npm run preview --workspace=react-vite-tailwind",
+    "dev:legacy": "next dev",
+    "build:legacy": "next build",
+    "start:legacy": "next start",
     "lint": "next lint"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
+  "workspaces": [
+    "develop-cinematic-3d-portfolio"
+  ],
   "dependencies": {
     "@google/genai": "^1.44.0",
     "@gsap/react": "^2.1.2",

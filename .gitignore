@@ -27,3 +27,6 @@ CV.MD
 # Duplicate / unused hero variants
 public/hero\ -\ Copy*.png
 public/hero\ -\ Copy\ -\ Copy.png
+
+# Generated output for the active Vite portfolio
+/develop-cinematic-3d-portfolio/dist/
