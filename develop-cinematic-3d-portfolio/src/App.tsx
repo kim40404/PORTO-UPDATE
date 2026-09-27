@@ -27,7 +27,7 @@ function CustomCursor({ enabled }: { enabled: boolean }) {
 
   useEffect(() => {
     const cursor = cursorRef.current;
-    if (!enabled || !cursor) return;
+    if (!enabled || !cursor || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     let targetX = -100;
     let targetY = -100;
@@ -1256,15 +1256,26 @@ export default function App() {
   }, [reducedMotion]);
 
   useEffect(() => {
+    if (!menuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    lenisRef.current?.stop();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      lenisRef.current?.start();
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
     window.history.replaceState(null, "", `#${view}`);
-    if (reducedMotion) {
-      window.scrollTo({ top: 0, behavior: "auto" });
-    } else if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { duration: 0.9 });
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
     } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "auto" });
     }
-  }, [view, reducedMotion]);
+  }, [view]);
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
@@ -1274,7 +1285,22 @@ export default function App() {
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
-  const changeView = (nextView: View) => setView(nextView);
+  useEffect(() => {
+    const handlePopState = () => {
+      const nextView = window.location.hash.slice(1) as View;
+      if (navItems.some((item) => item.id === nextView)) setView(nextView);
+      setMenuOpen(false);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const changeView = (nextView: View) => {
+    setMenuOpen(false);
+    if (nextView === view) return;
+    window.history.pushState(null, "", `#${nextView}`);
+    setView(nextView);
+  };
 
   return (
     <div className="site-shell">

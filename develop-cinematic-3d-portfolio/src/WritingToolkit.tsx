@@ -416,7 +416,8 @@ export function WritingPage() {
     const focusSearch = (event: KeyboardEvent) => {
       if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey) return;
       const target = event.target;
-      if (target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))) return;
+      if (target instanceof HTMLElement && target.isContentEditable) return;
+      if (target instanceof Element && target.closest("input, textarea, select, button, a, [role]")) return;
       event.preventDefault();
       searchRef.current?.focus();
     };
@@ -756,9 +757,13 @@ export function ToolkitPage() {
         <div className="toolkit-workbench-panel">
           <div className="toolkit-flow-area">
             <div className="toolkit-flow-topline"><span>WORKFLOW MAP</span><span>{activeFlow.id.toUpperCase()} / 0{toolFlows.findIndex((flow) => flow.id === activeFlow.id) + 1}</span></div>
-            <div className="toolkit-flow-tabs" role="tablist" aria-label="Choose a system workflow">
+            <div className="toolkit-flow-tabs" role="group" aria-label="Choose a system workflow">
               {toolFlows.map((flow) => (
-                <button className={activeFlowId === flow.id ? "is-active" : ""} key={flow.id} type="button" role="tab" aria-selected={activeFlowId === flow.id} onClick={() => setActiveFlowId(flow.id)}>{flow.label}</button>
+                <button className={activeFlowId === flow.id ? "is-active" : ""} key={flow.id} type="button" aria-pressed={activeFlowId === flow.id} onClick={() => {
+                  setActiveFlowId(flow.id);
+                  const firstTool = flow.steps.find((step) => step.tool)?.tool;
+                  if (firstTool) setSelectedTool(firstTool);
+                }}>{flow.label}</button>
               ))}
             </div>
             <div className="toolkit-flow-caption"><h3>{activeFlow.title}</h3><p>{activeFlow.description}</p></div>
