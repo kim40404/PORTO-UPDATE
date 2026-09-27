@@ -738,15 +738,20 @@ function TopBar({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
 }
 
 function NavigationOverlay({ open, view, onChangeView, close }: { open: boolean; view: View; onChangeView: (view: View) => void; close: () => void }) {
+  const reducedMotion = useReducedMotion();
+  const useFadeTransition = Boolean(reducedMotion) || window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
   return (
     <AnimatePresence>
       {open && (
         <motion.div
           className="nav-overlay"
-          initial={{ clipPath: "circle(0% at calc(100% - 42px) 42px)" }}
-          animate={{ clipPath: "circle(150% at calc(100% - 42px) 42px)" }}
-          exit={{ clipPath: "circle(0% at calc(100% - 42px) 42px)" }}
-          transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+          initial={useFadeTransition ? { opacity: 0 } : { clipPath: "circle(0% at calc(100% - 42px) 42px)" }}
+          animate={useFadeTransition ? { opacity: 1 } : { clipPath: "circle(150% at calc(100% - 42px) 42px)" }}
+          exit={useFadeTransition ? { opacity: 0 } : { clipPath: "circle(0% at calc(100% - 42px) 42px)" }}
+          transition={useFadeTransition
+            ? { duration: reducedMotion ? 0 : 0.18, ease: "easeOut" }
+            : { duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="nav-orbit" aria-hidden="true" />
           <div className="nav-list" role="navigation" aria-label="Portfolio navigation">
