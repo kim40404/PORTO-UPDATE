@@ -162,7 +162,7 @@ const projects: Project[] = [
     featured: true,
     links: [
       { label: "Visit product", href: "https://lolos-pcpm-ai.vercel.app/" },
-      { label: "See detail", href: "https://github.com/kim40404/lolos-pcpm-ai" },
+      { label: "Open repository", href: "https://github.com/kim40404/lolos-pcpm-ai" },
       {
         label: "See Article",
         href: "https://www.linkedin.com/pulse/building-ai-web-app-24-hours-getting-120-users-zero-budget-silalahi-8fexc/",
@@ -712,7 +712,7 @@ function MagneticButton({ children, className = "", onClick, href }: { children:
 
 function MenuButton({ onClick, open }: { onClick: () => void; open: boolean }) {
   return (
-    <button className="menu-button" type="button" onClick={onClick} aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open}>
+    <button className="menu-button" type="button" onClick={onClick} aria-label={open ? "Close navigation menu" : "Open navigation menu"} aria-expanded={open}>
       <span className="menu-button-label">{open ? "Close" : "See me"}</span>
       <span className="menu-button-icon" aria-hidden="true">
         <i className={open ? "open-top" : ""} />
@@ -1000,7 +1000,10 @@ function ProjectRow({ project, isOpen, onToggle, reducedMotion, index }: { proje
           <span className="project-row-summary">{project.summary}</span>
         </span>
         <span className="project-row-category">{project.category}</span>
-        <span className="expand-sign" aria-hidden="true">{isOpen ? "−" : "+"}</span>
+        <span className="project-row-action" aria-hidden="true">
+          <span>{isOpen ? "Close details" : "Open details"}</span>
+          <span className="expand-sign">{isOpen ? "−" : "+"}</span>
+        </span>
       </button>
       <AnimatePresence initial={false}>
         {isOpen && (
@@ -1076,7 +1079,10 @@ function ExperienceCard({ item, index }: { item: (typeof experience)[number]; in
           <span className="role-head"><strong>{item.role}</strong><span>{item.org}</span><span className="role-period">{item.period}</span></span>
           <span className="experience-summary">{item.sentence}</span>
         </span>
-        <span className="experience-toggle" aria-hidden="true">{isOpen ? "−" : "+"}</span>
+        <span className="experience-control" aria-hidden="true">
+          <span className="experience-action">{isOpen ? "Hide details" : "View details"}</span>
+          <span className="experience-toggle">{isOpen ? "−" : "+"}</span>
+        </span>
       </button>
       <AnimatePresence initial={false}>
         {isOpen && (

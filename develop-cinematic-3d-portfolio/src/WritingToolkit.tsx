@@ -20,11 +20,98 @@ type WritingArticle = {
   flow: ArticleFlowStep[];
   metrics: { value: string; label: string }[];
   visual: { image: string; alt: string; caption: string; label: string };
+  visuals?: { image: string; alt: string; caption: string; label: string }[];
   code: { language: string; title: string; note: string; snippet: string };
   sources: ArticleSource[];
 };
 
 const publishedArticles: WritingArticle[] = [
+  {
+    id: "ai-portfolio-rebuild",
+    number: "05",
+    title: "A Free Model, a Different Editor, and Half a Day",
+    date: "29 SEP 2026",
+    dateTime: "2026-09-29",
+    read: "5 MIN",
+    category: "DESIGN / AI-ASSISTED BUILD",
+    filter: "Product",
+    tags: ["AI-assisted", "UI/UX", "React", "Portfolio"],
+    description: "A fast portfolio rebuild, five visual notes, and a more useful question than which model wrote the code: what should a visitor do next?",
+    premise: "Some people guessed I used Claude Opus 5.5. I used a free AI model with a different editor, and finished the initial rebuild in roughly half a day. The more useful story is what that time went into: making the portfolio easier to navigate, evaluate, and act on.",
+    sections: [
+      { title: "The tool surprise is the hook, not the method", body: "Some readers assumed the rebuild came from Claude Opus 5.5. It did not: I used a free AI model and a different editor—not Antigravity or Claude Code. I am keeping the editor unnamed because this is not a model-versus-editor contest. AI helped me iterate faster; it did not decide what to show, which links mattered, or when the experience was clear enough to ship." },
+      { title: "A fast rebuild still needs a visitor’s path", body: "I treated each page as a decision point, not a screen to decorate. Someone curious can explore projects and open a demo or source; someone assessing my background can find the CV; someone ready to talk can reach the contact links. Those actions give visitors different ways through the portfolio instead of leaving them at a polished dead end." },
+      { title: "Design the page like a map, not a poster", body: "The visual hierarchy connects the story, project evidence, and next action. That is spatial design in a web-UX sense: where information sits, how visual weight guides attention, and how nearby actions shorten the path to proof. It describes a two-dimensional information layout—not 3D spatial computing." },
+      { title: "Treat AI visibility as an observation, not proof", body: "In one prompt-specific ChatGPT response, my profile appeared first in a generated list of 20 AI Engineer or AI talent profiles in Medan. It was an interesting moment to document, not a stable ranking, endorsement, or controlled SEO result. The screenshot records that one response; it does not establish that the result will repeat for other prompts, people, or dates." },
+      { title: "The human pass is what makes a fast build yours", body: "I still had to review the hierarchy, copy, links, project evidence, and the actual next step each button offers. The portfolio links to AI projects; it does not embed an AI agent or a multimodal interface. Being precise about that boundary matters: AI assistance can accelerate implementation, but the product claim still has to match what a visitor can really use." },
+    ],
+    flow: [
+      { label: "Arrive", detail: "Understand who built the portfolio and why" },
+      { label: "Explore", detail: "Browse projects and open the work" },
+      { label: "Verify", detail: "Check the CV, demos, and source links" },
+      { label: "Connect", detail: "Choose email or a professional profile" },
+    ],
+    metrics: [
+      { value: "FREE", label: "AI model used" },
+      { value: "≈½ DAY", label: "initial rebuild" },
+      { value: "05", label: "visual notes in this story" },
+    ],
+    visual: {
+      image: "/images/ai-portfolio-workflow.png",
+      alt: "AI-assisted portfolio workflow: brief, free model and portfolio, human review and design decisions, then deployment",
+      caption: "The loop: AI helps generate options; human review decides what is useful and ready to ship.",
+      label: "01 / AI ASSISTED · HUMAN DECIDED",
+    },
+    visuals: [
+      {
+        image: "/images/ai-portfolio-workflow.png",
+        alt: "AI-assisted portfolio workflow: brief, free model and portfolio, human review and design decisions, then deployment",
+        caption: "The loop: AI helps generate options; human review decides what is useful and ready to ship.",
+        label: "01 / AI ASSISTED · HUMAN DECIDED",
+      },
+      {
+        image: "/images/ai-portfolio-contact-cta.png",
+        alt: "Portfolio contact section with a clear invitation, CV link, email, and social links",
+        caption: "A useful final step: visitors can open the CV or choose a direct way to get in touch.",
+        label: "02 / MAKE CONTACT EASY",
+      },
+      {
+        image: "/images/ai-portfolio-project-discovery.png",
+        alt: "Portfolio project section featuring LolosPCPM with demo and repository links",
+        caption: "Project discovery should lead to evidence: a demo to try and a repository to inspect.",
+        label: "03 / FROM CARD TO PROJECT",
+      },
+      {
+        image: "/images/ai-portfolio-chatgpt-discovery.png",
+        alt: "One ChatGPT response showing the portfolio profile first in a generated list of 20 AI talent profiles in Medan",
+        caption: "One prompt-specific response placed the profile first in a list of 20. It is an observation—not a ranking guarantee or SEO proof.",
+        label: "04 / ONE SEARCH OBSERVATION",
+      },
+      {
+        image: "/images/ai-portfolio-half-day-hero.png",
+        alt: "Portfolio rebuild summary highlighting a free AI model, roughly half a day, and a design centered on the visitor’s next click",
+        caption: "The constraints are the hook; the visitor’s next click is the product question underneath it.",
+        label: "05 / THE BUILD IN ONE FRAME",
+      },
+    ],
+    code: {
+      language: "typescript",
+      title: "Plan around visitor intent",
+      note: "A small UX-planning sketch, not the portfolio's application router. It keeps the next useful action explicit for each visitor intent.",
+      snippet: `const visitorPaths = {
+  explore: ["projects", "live-demo", "source"],
+  evaluate: ["about", "cv"],
+  connect: ["email", "linkedin"],
+} as const;
+
+// Each path should lead to evidence or a clear next action.
+type VisitorIntent = keyof typeof visitorPaths;`,
+    },
+    sources: [
+      { label: "Original article · LinkedIn", href: "https://www.linkedin.com/pulse/people-guessed-i-used-claude-opus-55-free-model-instead-silalahi-fhtff/" },
+      { label: "Live portfolio", href: "https://kimsilalahi.vercel.app/" },
+    ],
+  },
   {
     id: "lolos-pcpm",
     number: "04",
@@ -261,13 +348,13 @@ const writingFilters = ["All notes", "AI & Search", "MLOps", "Data", "Product"];
 
 const upcomingArticles = [
   {
-    number: "05",
+    number: "06",
     label: "AI SEARCH / PERSONAL BRAND",
-    title: "How I’m testing for a #1 name result in ChatGPT",
-    note: "A documented experiment in making identity and work easier for answer engines to verify—not a ranking guarantee.",
+    title: "From one ChatGPT answer to a repeatable visibility test",
+    note: "Turn a single prompt-specific observation into a documented experiment across prompts and dates—not a ranking guarantee.",
   },
   {
-    number: "06",
+    number: "07",
     label: "FIELD NOTES / AI ENGINEERING",
     title: "The less glamorous parts of being an AI engineer",
     note: "A practical look at the data, evaluation, debugging, and product work around the model itself.",
@@ -279,15 +366,19 @@ function ArrowUpRight({ className = "" }: { className?: string }) {
 }
 
 function ArticleVisuals({ article }: { article: WritingArticle }) {
+  const visuals = article.visuals ?? [article.visual];
+
   return (
-    <div className="writing-visual-stack">
-      <figure className={`writing-visual-card writing-visual-${article.id}`}>
-        <div className="writing-visual-frame">
-          <img src={article.visual.image} alt={article.visual.alt} loading="lazy" />
-          <span className="writing-visual-label">{article.visual.label}</span>
-        </div>
-        <figcaption>{article.visual.caption}</figcaption>
-      </figure>
+    <div className={`writing-visual-stack ${article.visuals ? "writing-visual-gallery" : ""}`}>
+      {visuals.map((visual) => (
+        <figure className={`writing-visual-card writing-visual-${article.id}`} key={visual.image}>
+          <div className="writing-visual-frame">
+            <img src={visual.image} alt={visual.alt} loading="lazy" />
+            <span className="writing-visual-label">{visual.label}</span>
+          </div>
+          <figcaption>{visual.caption}</figcaption>
+        </figure>
+      ))}
 
       {article.id === "lolos-pcpm" && (
         <>
@@ -451,7 +542,7 @@ export function WritingPage() {
           </div>
         </div>
         <div className="writing-hero-art" aria-label="A visual summary of the writing process">
-          <div className="writing-art-top"><span>FIELD LOG / 2026</span><span>01—04</span></div>
+          <div className="writing-art-top"><span>FIELD LOG / 2026</span><span>01—05</span></div>
           <div className="writing-art-orbit writing-art-orbit-outer" aria-hidden="true" />
           <div className="writing-art-orbit writing-art-orbit-inner" aria-hidden="true" />
           <span className="writing-art-stamp">IDEA<br />→<br />SYSTEM</span>
@@ -467,7 +558,7 @@ export function WritingPage() {
       <section className="writing-archive section-shell" aria-labelledby="writing-archive-title">
         <div className="writing-archive-heading">
           <div>
-            <p className="section-kicker">The archive / 01—04</p>
+            <p className="section-kicker">The archive / 01—05</p>
             <h2 id="writing-archive-title">Ideas with a build log.</h2>
           </div>
           <p>Open a field note for its visuals, system map, code excerpt, and source links.</p>
@@ -502,7 +593,7 @@ export function WritingPage() {
                   <span className="writing-card-open">{isSelected ? "Close field note" : "Open field note"}<span aria-hidden="true">{isSelected ? "−" : "+"}</span></span>
                 </button>
                 <div className="writing-card-bottom"><time dateTime={article.dateTime}>{article.date}</time><span>{article.read}</span><span className="writing-card-mark" aria-hidden="true">↗</span></div>
-                {index === 0 && activeFilter === "All notes" && !query && <div className="writing-card-signal" aria-hidden="true"><span>BUILT IN &lt;24H</span><i /><span>120+ USERS</span><i /><span>ZERO PAID SPEND</span></div>}
+                {index === 0 && activeFilter === "All notes" && !query && <div className="writing-card-signal" aria-hidden="true">{article.id === "ai-portfolio-rebuild" ? <><span>FREE AI MODEL</span><i /><span>≈ HALF-DAY REBUILD</span><i /><span>DESIGNED FOR THE NEXT CLICK</span></> : <><span>BUILT IN &lt;24H</span><i /><span>120+ USERS</span><i /><span>ZERO PAID SPEND</span></>}</div>}
               </motion.article>
             );
           }) : (
@@ -549,7 +640,7 @@ export function WritingPage() {
                   </section>
                   <section className="writing-detail-section" id="writing-visuals">
                     <p className="writing-detail-kicker">VISUAL NOTES / 03</p>
-                    <h3>{selectedArticle.visual.label}</h3>
+                    <h3>{selectedArticle.visuals ? "Five moments from the visitor journey." : selectedArticle.visual.label}</h3>
                     <ArticleVisuals article={selectedArticle} />
                   </section>
                   <section className="writing-detail-section" id="writing-flow">
