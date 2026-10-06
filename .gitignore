@@ -31,3 +31,10 @@ public/hero\ -\ Copy\ -\ Copy.png
 
 # Generated output for the active Vite portfolio
 /develop-cinematic-3d-portfolio/dist/
+
+# Local-only archives (not for GitHub)
+/arsip/
+/github arsip/
+/portfolio-web/
+/workspace-*/
+/.zed/
