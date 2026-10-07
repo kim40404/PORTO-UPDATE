@@ -24,13 +24,18 @@ Kimsang_Silalahi_CV_2026_Final.docx
 CV.MD
 *.pdf
 !develop-cinematic-3d-portfolio/public/Kimsang_Silalahi_CV.pdf
+!porto gragas/public/Kimsang_Silalahi_CV.pdf
 
 # Duplicate / unused hero variants
 public/hero\ -\ Copy*.png
 public/hero\ -\ Copy\ -\ Copy.png
 
-# Generated output for the active Vite portfolio
+# Generated output for the Vite portfolios (porto gragas is the one deployed)
 /develop-cinematic-3d-portfolio/dist/
+/porto gragas/dist/
+
+# Remotion reel beside the site: its own git repo, not part of this one
+/porto-reel/
 
 # Local-only archives (not for GitHub)
 /arsip/
