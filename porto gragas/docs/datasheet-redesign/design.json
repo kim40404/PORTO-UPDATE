@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T00:00:00Z",
+  "title": "Design System: Kimsang Silalahi, component datasheet",
+  "extensions": {
+    "colorMeta": {
+      "band": { "role": "primary", "displayName": "Manufacturer Cobalt", "canonical": "oklch(0.44 0.17 262)", "tonalRamp": ["oklch(0.15 0.17 262)", "oklch(0.26 0.17 262)", "oklch(0.36 0.15 262)", "oklch(0.44 0.17 262)", "oklch(0.58 0.17 262)", "oklch(0.72 0.12 262)", "oklch(0.86 0.06 262)", "oklch(0.95 0.02 262)"] },
+      "band-deep": { "role": "primary", "displayName": "Deep Cobalt", "canonical": "oklch(0.36 0.15 262)", "tonalRamp": ["oklch(0.15 0.15 262)", "oklch(0.26 0.15 262)", "oklch(0.36 0.15 262)", "oklch(0.47 0.15 262)", "oklch(0.58 0.15 262)", "oklch(0.70 0.12 262)", "oklch(0.84 0.06 262)", "oklch(0.95 0.02 262)"] },
+      "band-tint": { "role": "primary", "displayName": "Band Tint", "canonical": "oklch(0.95 0.02 262)", "tonalRamp": ["oklch(0.15 0.02 262)", "oklch(0.26 0.02 262)", "oklch(0.38 0.02 262)", "oklch(0.50 0.02 262)", "oklch(0.62 0.02 262)", "oklch(0.74 0.02 262)", "oklch(0.86 0.02 262)", "oklch(0.95 0.02 262)"] },
+      "paper": { "role": "neutral", "displayName": "Datasheet Paper", "canonical": "oklch(0.99 0.002 90)", "tonalRamp": ["oklch(0.15 0.002 90)", "oklch(0.27 0.002 90)", "oklch(0.39 0.002 90)", "oklch(0.51 0.002 90)", "oklch(0.63 0.002 90)", "oklch(0.75 0.002 90)", "oklch(0.87 0.002 90)", "oklch(0.99 0.002 90)"] },
+      "band-ink": { "role": "neutral", "displayName": "Band Ink", "canonical": "oklch(0.99 0.002 90)", "tonalRamp": ["oklch(0.15 0.002 90)", "oklch(0.27 0.002 90)", "oklch(0.39 0.002 90)", "oklch(0.51 0.002 90)", "oklch(0.63 0.002 90)", "oklch(0.75 0.002 90)", "oklch(0.87 0.002 90)", "oklch(0.99 0.002 90)"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "oklch(0.18 0.01 260)", "tonalRamp": ["oklch(0.18 0.01 260)", "oklch(0.29 0.01 260)", "oklch(0.40 0.01 260)", "oklch(0.51 0.01 260)", "oklch(0.62 0.01 260)", "oklch(0.73 0.01 260)", "oklch(0.84 0.01 260)", "oklch(0.95 0.01 260)"] },
+      "ink-2": { "role": "neutral", "displayName": "Ink 2", "canonical": "oklch(0.4 0.01 260)", "tonalRamp": ["oklch(0.15 0.01 260)", "oklch(0.27 0.01 260)", "oklch(0.40 0.01 260)", "oklch(0.51 0.01 260)", "oklch(0.62 0.01 260)", "oklch(0.73 0.01 260)", "oklch(0.84 0.01 260)", "oklch(0.95 0.01 260)"] },
+      "rule": { "role": "neutral", "displayName": "Rule (55% ink)", "canonical": "oklch(0.18 0.01 260 / 0.55)", "tonalRamp": ["oklch(0.18 0.01 260 / 0.55)", "oklch(0.29 0.01 260 / 0.55)", "oklch(0.40 0.01 260 / 0.55)", "oklch(0.51 0.01 260 / 0.55)", "oklch(0.62 0.01 260 / 0.55)", "oklch(0.73 0.01 260 / 0.55)", "oklch(0.84 0.01 260 / 0.55)", "oklch(0.95 0.01 260 / 0.55)"] },
+      "limit": { "role": "neutral", "displayName": "Limit Grey", "canonical": "oklch(0.62 0 0)", "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.27 0 0)", "oklch(0.39 0 0)", "oklch(0.50 0 0)", "oklch(0.62 0 0)", "oklch(0.73 0 0)", "oklch(0.84 0 0)", "oklch(0.95 0 0)"] },
+      "watermark": { "role": "neutral", "displayName": "Watermark Grey", "canonical": "oklch(0.82 0 0)", "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.27 0 0)", "oklch(0.39 0 0)", "oklch(0.50 0 0)", "oklch(0.62 0 0)", "oklch(0.73 0 0)", "oklch(0.82 0 0)", "oklch(0.95 0 0)"] },
+      "grid": { "role": "neutral", "displayName": "Graticule Minor", "canonical": "oklch(0.93 0.02 262)", "tonalRamp": ["oklch(0.15 0.02 262)", "oklch(0.26 0.02 262)", "oklch(0.38 0.02 262)", "oklch(0.50 0.02 262)", "oklch(0.62 0.02 262)", "oklch(0.74 0.02 262)", "oklch(0.86 0.03 262)", "oklch(0.93 0.02 262)"] },
+      "grid-major": { "role": "neutral", "displayName": "Graticule Major", "canonical": "oklch(0.86 0.03 262)", "tonalRamp": ["oklch(0.15 0.03 262)", "oklch(0.26 0.03 262)", "oklch(0.38 0.03 262)", "oklch(0.50 0.03 262)", "oklch(0.62 0.03 262)", "oklch(0.74 0.03 262)", "oklch(0.86 0.03 262)", "oklch(0.95 0.02 262)"] },
+      "desk": { "role": "neutral", "displayName": "Desk", "canonical": "oklch(0.88 0.01 262)", "tonalRamp": ["oklch(0.15 0.01 262)", "oklch(0.27 0.01 262)", "oklch(0.39 0.01 262)", "oklch(0.51 0.01 262)", "oklch(0.63 0.01 262)", "oklch(0.75 0.01 262)", "oklch(0.88 0.01 262)", "oklch(0.95 0.01 262)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Part title", "purpose": "The part title only, Bold caps on the cobalt band; phones use clamp(1.75rem, 7.4vw, 2.25rem)." },
+      "headline": { "displayName": "Headline", "purpose": "Degree line in PACKAGE and drawer titles." },
+      "title": { "displayName": "Bar caps", "purpose": "Section bars and the drawer head; same size at 600/0.03em for the strip and segments, 0.875rem 700/0.04em for plates." },
+      "lead": { "displayName": "Lead", "purpose": "General description paragraph under the band, max 62ch." },
+      "body": { "displayName": "Body", "purpose": "Paragraphs and feature bullets, max 68ch; kern, liga, tnum on." },
+      "cell": { "displayName": "Cell", "purpose": "Table cells; Semibold parameters and headers, Bold Typ, tabular figures." },
+      "label": { "displayName": "Note", "purpose": "Conditions, numbered notes, captions, frame feet, page footers, in Ink 2." },
+      "mono": { "displayName": "Readout", "purpose": "Pin numbers, axis ticks, readouts, dimensions (0.6875rem), revision code. Nowhere else." }
+    },
+    "shadows": [
+      { "name": "sheet-on-desk", "value": "0 2px 10px oklch(0.2 0.02 262 / 0.14)", "purpose": "The .sheet at 1024px and up, with outline: 1px solid oklch(0.18 0.01 260 / 0.35). The only shadow in the system." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The single easing for every transition." },
+      { "name": "draw", "value": "800ms", "purpose": "Curve stroke-dashoffset and bar scale once a frame enters view, after a 120ms delay. Runs once." },
+      { "name": "print", "value": "600ms", "purpose": "Paper cover over a section bar retracts to the right once. The single authored entrance." },
+      { "name": "drawer", "value": "420ms", "purpose": "Drawer slide from the right." },
+      { "name": "shade", "value": "240ms", "purpose": "Drawer shade opacity." },
+      { "name": "skip-link", "value": "200ms", "purpose": "Skip link drop on focus." },
+      { "name": "reduced-motion", "value": "none", "purpose": "prefers-reduced-motion: bar covers removed, curves and bars final, drawer, shade, skip link and plate transitions off." }
+    ],
+    "breakpoints": [
+      { "name": "stack", "value": "640px", "purpose": "At and below: .ds-table.stack rows become labelled grids." },
+      { "name": "desk", "value": "1024px", "purpose": "At and above: desk ground, sheet outline and shadow, two-column page 1 and pins grid, strip links visible, band min-height 128px." }
+    ],
+    "rules": [
+      { "name": "rule-w", "value": "0.75px", "purpose": "Ink structural rule: tables, frames, plates, segments, pin boxes, strip, footer top, drawer edge." },
+      { "name": "band-rule", "value": "2px", "purpose": "Cobalt rule under plates and footers; deep cobalt under band, bars and drawer head." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Plate",
+      "kind": "button",
+      "refersTo": "plate-btn",
+      "description": "Primary action: white plate with a cobalt bottom rule (CV (PDF)).",
+      "html": "<a class=\"ds-plate\" href=\"#\">CV (PDF)</a>",
+      "css": ".ds-plate { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px; background: var(--paper, oklch(0.99 0.002 90)); color: var(--ink, oklch(0.18 0.01 260)); border: 0.75px solid var(--ink, oklch(0.18 0.01 260)); border-bottom: 2px solid var(--band, oklch(0.44 0.17 262)); border-radius: 0; font-family: \"Libre Franklin Variable\", \"Franklin Gothic Medium\", Arial, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; } .ds-plate:hover { background: var(--band-tint, oklch(0.95 0.02 262)); } .ds-plate:focus-visible { outline: 2px solid var(--band, oklch(0.44 0.17 262)); outline-offset: 2px; } .ds-plate:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Plate on band",
+      "kind": "button",
+      "refersTo": "plate-btn-on-band",
+      "description": "The plate inside the cobalt band or drawer head: paper border, deep-cobalt bottom rule.",
+      "html": "<div class=\"ds-band-bg\"><a class=\"ds-plate-on-band\" href=\"#\">CV (PDF)</a></div>",
+      "css": ".ds-band-bg { display: inline-block; padding: 16px; background: var(--band, oklch(0.44 0.17 262)); } .ds-plate-on-band { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; background: var(--paper, oklch(0.99 0.002 90)); color: var(--ink, oklch(0.18 0.01 260)); border: 0.75px solid var(--paper, oklch(0.99 0.002 90)); border-bottom: 2px solid var(--band-deep, oklch(0.36 0.15 262)); border-radius: 0; font-family: \"Libre Franklin Variable\", Arial, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; } .ds-plate-on-band:hover { background: var(--band-tint, oklch(0.95 0.02 262)); } .ds-plate-on-band:focus-visible { outline: 2px solid var(--paper, oklch(0.99 0.002 90)); outline-offset: 2px; } .ds-plate-on-band:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Ghost plate",
+      "kind": "button",
+      "refersTo": "plate-btn-ghost",
+      "description": "Secondary action beside a plate: transparent, ink rule all round, no cobalt rule.",
+      "html": "<button class=\"ds-plate-ghost\" type=\"button\">Re-test</button>",
+      "css": ".ds-plate-ghost { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; background: transparent; color: var(--ink, oklch(0.18 0.01 260)); border: 0.75px solid var(--ink, oklch(0.18 0.01 260)); border-radius: 0; font-family: \"Libre Franklin Variable\", Arial, sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; } .ds-plate-ghost:hover { background: var(--band-tint, oklch(0.95 0.02 262)); } .ds-plate-ghost:focus-visible { outline: 2px solid var(--band, oklch(0.44 0.17 262)); outline-offset: 2px; } .ds-plate-ghost:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Text link",
+      "kind": "custom",
+      "refersTo": "link",
+      "description": "Underlined text link; hover thickens the underline.",
+      "html": "<a class=\"ds-link\" href=\"#\">github.com/kim40404</a>",
+      "css": ".ds-link { color: inherit; font-family: \"Libre Franklin Variable\", Arial, sans-serif; font-size: 1rem; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: currentColor; } .ds-link:hover { text-decoration-thickness: 2px; } .ds-link:focus-visible { outline: 2px solid var(--band, oklch(0.44 0.17 262)); outline-offset: 2px; }"
+    },
+    {
+      "name": "Segmented switch",
+      "kind": "chip",
+      "refersTo": "seg",
+      "description": "Ruled segment group; the pressed segment fills cobalt. Package views and Figure 1 controls.",
+      "html": "<div class=\"ds-seg\" role=\"group\"><button type=\"button\" aria-pressed=\"true\">Formal</button><button type=\"button\" aria-pressed=\"false\">Everyday</button><button type=\"button\" aria-pressed=\"false\">Experiment</button></div>",
+      "css": ".ds-seg { display: inline-flex; border: 0.75px solid var(--ink, oklch(0.18 0.01 260)); } .ds-seg button { min-height: 36px; padding: 0 12px; background: var(--paper, oklch(0.99 0.002 90)); color: var(--ink, oklch(0.18 0.01 260)); border: 0; border-radius: 0; font-family: \"Libre Franklin Variable\", Arial, sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; cursor: pointer; } .ds-seg button + button { border-left: 0.75px solid var(--ink, oklch(0.18 0.01 260)); } .ds-seg button[aria-pressed=\"true\"] { background: var(--band, oklch(0.44 0.17 262)); color: var(--band-ink, oklch(0.99 0.002 90)); } .ds-seg button:hover { background: var(--band-tint, oklch(0.95 0.02 262)); } .ds-seg button[aria-pressed=\"true\"]:hover { background: var(--band, oklch(0.44 0.17 262)); } .ds-seg button:focus-visible { outline: 2px solid var(--band, oklch(0.44 0.17 262)); outline-offset: 2px; }"
+    },
+    {
+      "name": "Section bar",
+      "kind": "nav",
+      "refersTo": "bar",
+      "description": "The single authored section entrance: cobalt bar, Bold caps, optional right aside.",
+      "html": "<h2 class=\"ds-bar\"><span>Electrical characteristics</span><span class=\"ds-bar-aside\">TA = 2024 to 2026 unless noted</span></h2>",
+      "css": ".ds-bar { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 0; padding: 7px 12px 6px; background: var(--band, oklch(0.44 0.17 262)); color: var(--band-ink, oklch(0.99 0.002 90)); border-bottom: 2px solid var(--band-deep, oklch(0.36 0.15 262)); font-family: \"Libre Franklin Variable\", Arial, sans-serif; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.3; } .ds-bar-aside { font-weight: 500; letter-spacing: 0.03em; opacity: 0.9; text-align: right; }"
+    },
+    {
+      "name": "Contents strip",
+      "kind": "nav",
+      "refersTo": "strip",
+      "description": "Fixed 44px paper strip with ruled bottom; the current link is cobalt and underlined.",
+      "html": "<nav class=\"ds-strip\"><span>Kimsang Silalahi</span><div class=\"ds-strip-links\"><a href=\"#\">Features</a><a href=\"#\" aria-current=\"true\">Characteristics</a><a href=\"#\">Curves</a><a href=\"#\">Ordering</a></div></nav>",
+      "css": ".ds-strip { height: 44px; padding: 0 24px; display: flex; align-items: center; gap: 24px; background: var(--paper, oklch(0.99 0.002 90)); color: var(--ink, oklch(0.18 0.01 260)); border-bottom: 0.75px solid var(--ink, oklch(0.18 0.01 260)); font-family: \"Libre Franklin Variable\", Arial, sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; } .ds-strip-links { display: flex; gap: 18px; margin-left: auto; } .ds-strip-links a { color: inherit; text-decoration: none; } .ds-strip-links a:hover { text-decoration: underline; text-underline-offset: 6px; } .ds-strip-links a[aria-current=\"true\"] { color: var(--band, oklch(0.44 0.17 262)); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; } .ds-strip-links a:focus-visible { outline: 2px solid var(--band, oklch(0.44 0.17 262)); outline-offset: 2px; }"
+    },
+    {
+      "name": "Characteristics table",
+      "kind": "custom",
+      "refersTo": "table-cell",
+      "description": "Ruled Min/Typ/Max table with tabular figures, tinted header, linked-row tint.",
+      "html": "<table class=\"ds-table\"><thead><tr><th>Parameter</th><th>Test conditions</th><th class=\"r\">Min</th><th class=\"r\">Typ</th><th class=\"r\">Max</th><th>Unit</th></tr></thead><tbody><tr><td class=\"p\">Precision@50<a class=\"ds-note-ref\" href=\"#\"><sup>(1)</sup></a></td><td>FlyRank bundled sample, directional</td><td class=\"r\">0.24</td><td class=\"r typ\">0.74</td><td class=\"dash\">-</td><td class=\"unit\">ratio</td></tr><tr><td class=\"p\">Rows validated</td><td>id-en pipeline, published to Hugging Face</td><td class=\"dash\">-</td><td class=\"r typ\">944</td><td class=\"r\">945</td><td class=\"unit\">rows</td></tr></tbody></table>",
+      "css": ".ds-table { width: 100%; border-collapse: collapse; font-family: \"Libre Franklin Variable\", Arial, sans-serif; font-size: 0.875rem; line-height: 1.4; font-variant-numeric: tabular-nums; color: var(--ink, oklch(0.18 0.01 260)); border-top: 0.75px solid var(--ink, oklch(0.18 0.01 260)); border-bottom: 0.75px solid var(--ink, oklch(0.18 0.01 260)); } .ds-table th { background: var(--band-tint, oklch(0.95 0.02 262)); font-weight: 600; text-align: left; padding: 7px 10px; border-bottom: 0.75px solid var(--ink, oklch(0.18 0.01 260)); white-space: nowrap; } .ds-table td { padding: 8px 10px; border-bottom: 0.75px solid var(--rule, oklch(0.18 0.01 260 / 0.55)); vertical-align: top; } .ds-table tbody tr:last-child td { border-bottom: 0; } .ds-table tbody tr:hover td { background: var(--band-tint, oklch(0.95 0.02 262)); } .ds-table .p { font-weight: 600; } .ds-table .typ { font-weight: 700; white-space: nowrap; } .ds-table .r { text-align: right; } .ds-table .dash { color: var(--limit, oklch(0.62 0 0)); text-align: center; } .ds-table .unit { color: var(--ink-2, oklch(0.4 0.01 260)); white-space: nowrap; } .ds-note-ref { color: var(--band, oklch(0.44 0.17 262)); font-weight: 600; text-decoration: none; display: inline-block; line-height: 1; padding: 8px 7px; margin: -8px -7px; } .ds-note-ref:focus-visible { outline: 2px solid var(--band, oklch(0.44 0.17 262)); outline-offset: 2px; }"
+    },
+    {
+      "name": "Graticule frame",
+      "kind": "card",
+      "refersTo": "frame",
+      "description": "Figure frame: head, 10x8 graticule body, conditions foot; illustrative variant dashed with NOT TESTED watermark.",
+      "html": "<figure class=\"ds-frame ds-frame--illustrative\"><figcaption class=\"ds-frame-head\"><span><b>Figure 4.</b> Churn precision curve</span></figcaption><div class=\"ds-frame-body\"><svg viewBox=\"0 0 100 80\" width=\"100%\" height=\"100%\"><polyline fill=\"none\" stroke=\"var(--band, oklch(0.44 0.17 262))\" stroke-width=\"1.5\" points=\"4,70 20,52 36,40 52,33 68,28 84,25 96,24\"/><polyline fill=\"none\" stroke=\"var(--limit, oklch(0.62 0 0))\" stroke-width=\"1\" stroke-dasharray=\"3 2\" points=\"4,76 20,62 36,52 52,46 68,42 84,40 96,39\"/></svg></div><div class=\"ds-frame-foot\"><p class=\"ds-frame-conditions\">XGBoost, 7,043 profiles, threshold sweep; illustrative shape.</p></div></figure>",
+      "css": ".ds-frame { position: relative; display: flex; flex-direction: column; margin: 0; width: 320px; background: var(--paper, oklch(0.99 0.002 90)); color: var(--ink, oklch(0.18 0.01 260)); border: 0.75px solid var(--ink, oklch(0.18 0.01 260)); font-family: \"Libre Franklin Variable\", Arial, sans-serif; } .ds-frame-head { display: flex; justify-content: space-between; gap: 12px; padding: 7px 10px; border-bottom: 0.75px solid var(--ink, oklch(0.18 0.01 260)); font-size: 0.8125rem; line-height: 1.35; } .ds-frame-body { position: relative; aspect-ratio: 4 / 5; padding: 12px; background-color: var(--paper, oklch(0.99 0.002 90)); background-image: linear-gradient(var(--grid-major, oklch(0.86 0.03 262)) 1px, transparent 1px), linear-gradient(90deg, var(--grid-major, oklch(0.86 0.03 262)) 1px, transparent 1px), linear-gradient(var(--grid, oklch(0.93 0.02 262)) 1px, transparent 1px), linear-gradient(90deg, var(--grid, oklch(0.93 0.02 262)) 1px, transparent 1px); background-size: 100% 50%, 50% 100%, 100% 12.5%, 10% 100%; background-position: 0 -1px, -1px 0, 0 -1px, -1px 0; container-type: inline-size; } .ds-frame-body > svg { position: relative; display: block; } .ds-frame-foot { padding: 8px 10px 10px; border-top: 0.75px solid var(--ink, oklch(0.18 0.01 260)); font-size: 0.78125rem; line-height: 1.5; color: var(--ink-2, oklch(0.4 0.01 260)); } .ds-frame-conditions { margin: 0; } .ds-frame-conditions::before { content: \"Conditions: \"; font-weight: 600; color: var(--ink, oklch(0.18 0.01 260)); } .ds-frame--illustrative { border-style: dashed; } .ds-frame--illustrative .ds-frame-head::after { content: \"illustrative\"; margin-left: auto; color: var(--ink-2, oklch(0.4 0.01 260)); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; align-self: center; border: 0.75px solid var(--limit, oklch(0.62 0 0)); padding: 1px 6px; } .ds-frame--illustrative .ds-frame-body::after { content: \"NOT TESTED\"; position: absolute; inset: 0; display: grid; place-items: center; font-size: clamp(1.5rem, 9cqi, 3.25rem); font-weight: 800; letter-spacing: 0.14em; color: var(--watermark, oklch(0.82 0 0)); transform: rotate(-22deg); pointer-events: none; z-index: 2; } .ds-frame:hover { outline: 2px solid var(--band, oklch(0.44 0.17 262)); outline-offset: 2px; }"
+    },
+    {
+      "name": "Pin number",
+      "kind": "chip",
+      "refersTo": "mono",
+      "description": "Mono pin number in a ruled box, as in PIN CONFIGURATION.",
+      "html": "<span class=\"ds-pin\">1</span> <span class=\"ds-pin\">12</span>",
+      "css": ".ds-pin { font-family: \"Share Tech Mono\", ui-monospace, Menlo, monospace; font-size: 0.8125rem; display: inline-block; min-width: 2ch; padding: 0 4px; border: 0.75px solid var(--ink, oklch(0.18 0.01 260)); color: var(--ink, oklch(0.18 0.01 260)); text-align: center; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Component Datasheet",
+    "overview": "The system describes an engineer the way a datasheet describes a part. Every claim is a row with its test conditions and limits (Parameter / Conditions / Min / Typ / Max / Unit / Note); every figure is a characteristic curve on a graticule with a \"Figure N.\" head and a conditions line in its lower margin; an illustrative figure carries a NOT TESTED watermark, a dashed edge and a head tag, never colour alone. The page is one 1180px sheet lying flat on a grey desk, divided into pages by its footers (\"Rev. 2026-10 | Page n of N | kimsilalahi.vercel.app\").\n\nThe mood is exact, calm, cobalt-and-paper, with no decoration. One manufacturer cobalt carries all emphasis: the page-1 band, the section bars, the drawer head, table header tint, the heavy typical curve, the selected segment, selection and focus. Everything else is ink on paper, with grey reserved for limits and watermarks. Density is high, print-like and tabular; the single scale move per page is the part title at billboard size against notes at footnote size.\n\nConfirmed rejections: no italic serif accent, no kickers or eyebrow labels, no section numbers beyond datasheet page and figure numbers, no pills, no glyph icons, no grain, custom cursor, preloader counter, marquee, count-ups or word scrubs.",
+    "keyCharacteristics": [
+      "One cobalt, one paper, one ink; grey only for limits, dashes and watermarks.",
+      "Radius 0 everywhere; 0.75px ink rules and 2px cobalt or deep-cobalt band rules.",
+      "Libre Franklin Bold caps for titles and bars, Semibold for parameters, Regular for cells; Share Tech Mono only for pin numbers, axis ticks, readouts, dimensions and the revision code.",
+      "Flat sheet on a desk; the only shadow is the sheet's own at 1024px and up.",
+      "Curves draw once, bars print once, nothing loops; reduced motion renders the printed sheet."
+    ],
+    "rules": [
+      { "name": "The One Band Rule", "body": "Cobalt is the only hue. It appears as fill on bands, bars and selected segments, as a 2px bottom rule on plates, and as the typical curve; it is never a body text colour, and no second accent is ever added.", "section": "colors" },
+      { "name": "The Grey Means Limit Rule", "body": "Limit grey and watermark grey carry information (a limit curve, an untested figure, a value not stated). They are never used decoratively or as a disabled look.", "section": "colors" },
+      { "name": "The Mono Is A Readout Rule", "body": "Share Tech Mono appears only where a number is read off an instrument: pin numbers, axis ticks, live readouts, dimensions, the revision code. Never in headings, body or table prose.", "section": "typography" },
+      { "name": "The Caps Carry Structure Rule", "body": "Uppercase is reserved for the part title, its three role lines, section bars, the strip, plates and segments. No kickers or eyebrows; the only numbers that precede a title are page and figure numbers.", "section": "typography" },
+      { "name": "The One Sheet Rule", "body": "The only shadow in the system is the sheet's own. No control, card, frame or band may carry one.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do give every value a conditions cell and a comparison (baseline, Min/Max, or \"-\" with a note); never a lone number.",
+      "Do mark an illustrative figure three ways: dashed frame, \"illustrative\" head tag, NOT TESTED watermark; never by colour alone.",
+      "Do keep cobalt to bands, bars, selected segments, plate rules, the typical curve, note marks and focus; keep body text ink.",
+      "Do use 0.75px ink rules for structure and 2px band rules for emphasis; radius 0 everywhere.",
+      "Do set every number in tabular figures; use Share Tech Mono only for pin numbers, ticks, readouts, dimensions and the revision code.",
+      "Do draw each curve once on entry (800ms ease-out) and print each bar once (600ms); render everything final under reduced motion.",
+      "Do keep the CV plate within one page of any scroll position by repeating the ordering row in every page footer."
+    ],
+    "donts": [
+      "Don't add a second accent, a cream or warm paper, or a tinted ground behind any block other than table headers and linked rows.",
+      "Don't use kickers, eyebrows, section numbers (page and figure numbers excepted), pills, glyph icons or an italic serif accent.",
+      "Don't add shadows, grain, blur, gradients or borders heavier than 2px; the only shadow is the sheet's own at 1024px and up.",
+      "Don't loop, breathe, count up, scrub words, cycle, or re-enter a section on scroll; figures persist once drawn.",
+      "Don't invent Min or Max values; state \"-\" with a note when a source does not give one.",
+      "Don't use a system display face or a decorative font; the two self-hosted faces are the whole set."
+    ]
+  }
+}

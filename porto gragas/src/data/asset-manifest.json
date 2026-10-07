@@ -1,0 +1,155 @@
+{
+  "cutout": {
+    "src": "/images/cutout.webp",
+    "width": 1532,
+    "height": 2593,
+    "variants": {
+      "1600": "/images/cutout.webp",
+      "800": "/images/cutout-800.webp"
+    }
+  },
+  "portraitFormal": {
+    "src": "/images/portrait-formal.webp",
+    "width": 1024,
+    "height": 1026,
+    "variants": {
+      "1600": "/images/portrait-formal.webp",
+      "800": "/images/portrait-formal-800.webp"
+    }
+  },
+  "portraitUrban": {
+    "src": "/images/portrait-urban.webp",
+    "width": 900,
+    "height": 1125,
+    "variants": {
+      "1600": "/images/portrait-urban.webp",
+      "800": "/images/portrait-urban-800.webp"
+    }
+  },
+  "portraitRobot": {
+    "src": "/images/portrait-robot.webp",
+    "width": 1122,
+    "height": 1402,
+    "variants": {
+      "1600": "/images/portrait-robot.webp",
+      "800": "/images/portrait-robot-800.webp"
+    }
+  },
+  "citeready": {
+    "src": "/images/citeready.webp",
+    "width": 1600,
+    "height": 873,
+    "variants": {
+      "1600": "/images/citeready.webp",
+      "800": "/images/citeready-800.webp"
+    }
+  },
+  "lolosPcpm": {
+    "src": "/images/lolos-pcpm.webp",
+    "width": 1600,
+    "height": 875,
+    "variants": {
+      "1600": "/images/lolos-pcpm.webp",
+      "800": "/images/lolos-pcpm-800.webp"
+    }
+  },
+  "honeyQuality": {
+    "src": "/images/honey-quality.webp",
+    "width": 1600,
+    "height": 881,
+    "variants": {
+      "1600": "/images/honey-quality.webp",
+      "800": "/images/honey-quality-800.webp"
+    }
+  },
+  "growmate": {
+    "src": "/images/growmate.webp",
+    "width": 1600,
+    "height": 873,
+    "variants": {
+      "1600": "/images/growmate.webp",
+      "800": "/images/growmate-800.webp"
+    }
+  },
+  "huggingface": {
+    "src": "/images/huggingface.webp",
+    "width": 1600,
+    "height": 800,
+    "variants": {
+      "1600": "/images/huggingface.webp",
+      "800": "/images/huggingface-800.webp"
+    }
+  },
+  "churnDashboard": {
+    "src": "/images/churn-dashboard.webp",
+    "width": 1600,
+    "height": 875,
+    "variants": {
+      "1600": "/images/churn-dashboard.webp",
+      "800": "/images/churn-dashboard-800.webp"
+    }
+  },
+  "churnHighRisk": {
+    "src": "/images/churn-high-risk.webp",
+    "width": 1600,
+    "height": 875,
+    "variants": {
+      "1600": "/images/churn-high-risk.webp",
+      "800": "/images/churn-high-risk-800.webp"
+    }
+  },
+  "churnShap": {
+    "src": "/images/churn-shap.webp",
+    "width": 803,
+    "height": 401,
+    "variants": {
+      "1600": "/images/churn-shap.webp",
+      "800": "/images/churn-shap-800.webp"
+    }
+  },
+  "churnGrafana": {
+    "src": "/images/churn-grafana.webp",
+    "width": 1600,
+    "height": 875,
+    "variants": {
+      "1600": "/images/churn-grafana.webp",
+      "800": "/images/churn-grafana-800.webp"
+    }
+  },
+  "churnMlflow": {
+    "src": "/images/churn-mlflow.webp",
+    "width": 1600,
+    "height": 919,
+    "variants": {
+      "1600": "/images/churn-mlflow.webp",
+      "800": "/images/churn-mlflow-800.webp"
+    }
+  },
+  "churnSwagger": {
+    "src": "/images/churn-swagger.webp",
+    "width": 1600,
+    "height": 807,
+    "variants": {
+      "1600": "/images/churn-swagger.webp",
+      "800": "/images/churn-swagger-800.webp"
+    }
+  },
+  "chatgptDiscovery": {
+    "src": "/images/chatgpt-discovery.webp",
+    "width": 1600,
+    "height": 858,
+    "variants": {
+      "1600": "/images/chatgpt-discovery.webp",
+      "800": "/images/chatgpt-discovery-800.webp"
+    }
+  },
+  "workflow": {
+    "src": "/images/workflow.webp",
+    "width": 1600,
+    "height": 900,
+    "variants": {
+      "1600": "/images/workflow.webp",
+      "800": "/images/workflow-800.webp"
+    }
+  }
+}

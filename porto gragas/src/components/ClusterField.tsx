@@ -1,0 +1,446 @@
+import { useEffect, useRef } from "react";
+import { reduceMotion } from "../lib/motion";
+
+interface Props {
+  className?: string;
+  /** called on every K-Means step with iteration + inertia */
+  onStep?: (iter: number, inertia: number, converged: boolean) => void;
+}
+
+const K = 4;
+const FG: [number, number, number] = [236, 231, 220];
+const ACCENT: [number, number, number] = [255, 112, 52];
+/* per-cluster colour + alpha */
+const CLUSTER: { c: [number, number, number]; a: number }[] = [
+  { c: ACCENT, a: 0.95 },
+  { c: FG, a: 0.85 },
+  { c: FG, a: 0.5 },
+  { c: FG, a: 0.28 },
+];
+const MONO = `500 10px "Geist Mono Variable", ui-monospace, monospace`;
+
+function mulberry32(seed: number) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+export default function ClusterField({ className, onStep }: Props) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const stepRef = useRef(onStep);
+  stepRef.current = onStep;
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d", { alpha: true });
+    if (!canvas || !ctx) return;
+
+    /* Scale the simulation to the device: fewer points and a lower pixel
+       ceiling on phones keeps the plot at 60fps without changing how it reads. */
+    const coarse = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    const narrow = window.innerWidth < 760;
+    const N = coarse || narrow ? 300 : 560;
+    const DPR_CAP = coarse || narrow ? 1.5 : 2;
+
+    let seed = 7;
+    let rng = mulberry32(seed);
+    const gauss = () => {
+      const u = Math.max(rng(), 1e-6);
+      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * rng());
+    };
+
+    /* data, normalised to [0,1] */
+    const tx = new Float32Array(N); // target
+    const ty = new Float32Array(N);
+    const x = new Float32Array(N); // displayed
+    const y = new Float32Array(N);
+    const ox = new Float32Array(N); // cursor displacement
+    const oy = new Float32Array(N);
+    const label = new Uint8Array(N);
+    const col = new Float32Array(N * 4); // r g b a, eased
+
+    const cx = new Float32Array(K); // centroid display
+    const cy = new Float32Array(K);
+    const ctx_ = new Float32Array(K); // centroid target
+    const cty = new Float32Array(K);
+    const ell = Array.from({ length: K }, () => ({ rx: 0, ry: 0, rot: 0, n: 0 }));
+
+    const genBlobs = () => {
+      const blobs = Array.from({ length: K }, () => ({
+        x: 0.18 + rng() * 0.64,
+        y: 0.18 + rng() * 0.64,
+        sx: 0.05 + rng() * 0.05,
+        sy: 0.05 + rng() * 0.05,
+      }));
+      for (let i = 0; i < N; i++) {
+        if (i < N * 0.06) {
+          tx[i] = 0.05 + rng() * 0.9;
+          ty[i] = 0.05 + rng() * 0.9;
+        } else {
+          const b = blobs[i % K];
+          tx[i] = Math.min(0.98, Math.max(0.02, b.x + gauss() * b.sx));
+          ty[i] = Math.min(0.98, Math.max(0.02, b.y + gauss() * b.sy));
+        }
+      }
+    };
+
+    const initCentroids = () => {
+      for (let k = 0; k < K; k++) {
+        const i = Math.floor(rng() * N);
+        ctx_[k] = tx[i];
+        cty[k] = ty[i];
+      }
+    };
+
+    let iter = 0;
+    let converged = false;
+
+    const step = () => {
+      // assign
+      let inertia = 0;
+      for (let i = 0; i < N; i++) {
+        let best = 0,
+          bd = Infinity;
+        for (let k = 0; k < K; k++) {
+          const d = (tx[i] - ctx_[k]) ** 2 + (ty[i] - cty[k]) ** 2;
+          if (d < bd) {
+            bd = d;
+            best = k;
+          }
+        }
+        label[i] = best;
+        inertia += bd;
+      }
+      // update + covariance
+      let moved = 0;
+      for (let k = 0; k < K; k++) {
+        let sx = 0,
+          sy = 0,
+          n = 0;
+        for (let i = 0; i < N; i++)
+          if (label[i] === k) {
+            sx += tx[i];
+            sy += ty[i];
+            n++;
+          }
+        if (!n) continue;
+        const mx = sx / n,
+          my = sy / n;
+        moved += Math.abs(mx - ctx_[k]) + Math.abs(my - cty[k]);
+        ctx_[k] = mx;
+        cty[k] = my;
+        let a = 0,
+          b = 0,
+          c = 0;
+        for (let i = 0; i < N; i++)
+          if (label[i] === k) {
+            const dx = tx[i] - mx,
+              dy = ty[i] - my;
+            a += dx * dx;
+            b += dx * dy;
+            c += dy * dy;
+          }
+        a /= n;
+        b /= n;
+        c /= n;
+        const tr = (a + c) / 2;
+        const det = Math.sqrt(Math.max(0, ((a - c) / 2) ** 2 + b * b));
+        ell[k] = { rx: 2.1 * Math.sqrt(tr + det), ry: 2.1 * Math.sqrt(Math.max(tr - det, 1e-6)), rot: 0.5 * Math.atan2(2 * b, a - c), n };
+      }
+      iter++;
+      converged = moved < 0.002;
+      stepRef.current?.(iter, inertia / N, converged);
+    };
+
+    const reseed = () => {
+      seed += 1;
+      rng = mulberry32(seed);
+      genBlobs();
+      initCentroids();
+      iter = 0;
+      converged = false;
+    };
+
+    /* first data set */
+    genBlobs();
+    for (let i = 0; i < N; i++) {
+      x[i] = tx[i];
+      y[i] = ty[i];
+      col.set([FG[0], FG[1], FG[2], 0.3], i * 4);
+    }
+    initCentroids();
+    for (let k = 0; k < K; k++) {
+      cx[k] = ctx_[k];
+      cy[k] = cty[k];
+    }
+
+    /* layout */
+    let w = 0,
+      h = 0,
+      dpr = 1;
+    const plot = { x: 0, y: 0, w: 0, h: 0 };
+    const resize = () => {
+      const r = canvas.getBoundingClientRect();
+      w = r.width;
+      h = r.height;
+      dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+      canvas.width = Math.max(1, Math.round(w * dpr));
+      canvas.height = Math.max(1, Math.round(h * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const padL = 44,
+        padB = 40,
+        padT = 16,
+        padR = 12;
+      plot.x = padL;
+      plot.y = padT;
+      plot.w = Math.max(10, w - padL - padR);
+      plot.h = Math.max(10, h - padT - padB);
+    };
+    const PX = (v: number) => plot.x + v * plot.w;
+    const PY = (v: number) => plot.y + (1 - v) * plot.h;
+
+    const mouse = { x: -1, y: -1, on: false };
+
+    const draw = (t: number) => {
+      ctx.clearRect(0, 0, w, h);
+      ctx.font = MONO;
+      ctx.textBaseline = "alphabetic";
+
+      /* grid + axes */
+      ctx.strokeStyle = `rgba(${FG},0.07)`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let g = 1; g < 5; g++) {
+        const gx = Math.round(PX(g / 5)) + 0.5;
+        const gy = Math.round(PY(g / 5)) + 0.5;
+        ctx.moveTo(gx, plot.y);
+        ctx.lineTo(gx, plot.y + plot.h);
+        ctx.moveTo(plot.x, gy);
+        ctx.lineTo(plot.x + plot.w, gy);
+      }
+      ctx.stroke();
+      ctx.strokeStyle = `rgba(${FG},0.3)`;
+      ctx.beginPath();
+      ctx.moveTo(plot.x + 0.5, plot.y);
+      ctx.lineTo(plot.x + 0.5, plot.y + plot.h + 0.5);
+      ctx.lineTo(plot.x + plot.w, plot.y + plot.h + 0.5);
+      ctx.stroke();
+
+      ctx.fillStyle = `rgba(${FG},0.45)`;
+      ctx.textAlign = "center";
+      for (let g = 0; g <= 5; g++) ctx.fillText((g / 5).toFixed(1), PX(g / 5), plot.y + plot.h + 18);
+      ctx.textAlign = "right";
+      for (let g = 1; g <= 5; g++) ctx.fillText((g / 5).toFixed(1), plot.x - 8, PY(g / 5) + 3);
+      ctx.textAlign = "right";
+      ctx.fillText("KDA  →", plot.x + plot.w, plot.y + plot.h + 34);
+      ctx.save();
+      ctx.translate(plot.x - 30, plot.y);
+      ctx.rotate(-Math.PI / 2);
+      ctx.textAlign = "right";
+      ctx.fillText("WIN RATE  →", 0, 0);
+      ctx.restore();
+
+      /* ellipses */
+      ctx.setLineDash([2, 6]);
+      ctx.lineDashOffset = -t * 0.006;
+      for (let k = 0; k < K; k++) {
+        const e = ell[k];
+        if (!e.n) continue;
+        ctx.strokeStyle = k === 0 ? `rgba(${ACCENT},0.55)` : `rgba(${FG},0.28)`;
+        ctx.beginPath();
+        ctx.ellipse(PX(cx[k]), PY(cy[k]), e.rx * plot.w, e.ry * plot.h, -e.rot, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+
+      /* points */
+      for (let i = 0; i < N; i++) {
+        const o = i * 4;
+        ctx.fillStyle = `rgba(${col[o] | 0},${col[o + 1] | 0},${col[o + 2] | 0},${col[o + 3].toFixed(3)})`;
+        const s = label[i] === 0 && iter > 0 ? 2.6 : 2.2;
+        ctx.fillRect(PX(x[i]) + ox[i] - s / 2, PY(y[i]) + oy[i] - s / 2, s, s);
+      }
+
+      /* centroids */
+      for (let k = 0; k < K; k++) {
+        const px = PX(cx[k]),
+          py = PY(cy[k]);
+        ctx.strokeStyle = k === 0 ? `rgb(${ACCENT})` : `rgba(${FG},0.95)`;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(px - 9, py);
+        ctx.lineTo(px + 9, py);
+        ctx.moveTo(px, py - 9);
+        ctx.lineTo(px, py + 9);
+        ctx.stroke();
+        ctx.strokeRect(px - 4, py - 4, 8, 8);
+        ctx.fillStyle = k === 0 ? `rgb(${ACCENT})` : `rgba(${FG},0.7)`;
+        ctx.textAlign = "left";
+        ctx.fillText(`C${k + 1}`, px + 12, py - 10);
+      }
+      ctx.lineWidth = 1;
+
+      /* probe */
+      if (mouse.on && mouse.x >= plot.x && mouse.x <= plot.x + plot.w && mouse.y >= plot.y && mouse.y <= plot.y + plot.h) {
+        const vx = (mouse.x - plot.x) / plot.w;
+        const vy = 1 - (mouse.y - plot.y) / plot.h;
+        let best = 0,
+          bd = Infinity;
+        for (let k = 0; k < K; k++) {
+          const d = (vx - cx[k]) ** 2 + (vy - cy[k]) ** 2;
+          if (d < bd) {
+            bd = d;
+            best = k;
+          }
+        }
+        ctx.strokeStyle = `rgba(${FG},0.35)`;
+        ctx.setLineDash([3, 4]);
+        ctx.beginPath();
+        ctx.moveTo(mouse.x, mouse.y);
+        ctx.lineTo(mouse.x, plot.y + plot.h);
+        ctx.moveTo(mouse.x, mouse.y);
+        ctx.lineTo(plot.x, mouse.y);
+        ctx.moveTo(mouse.x, mouse.y);
+        ctx.lineTo(PX(cx[best]), PY(cy[best]));
+        ctx.stroke();
+        ctx.setLineDash([]);
+        const txt = `${vx.toFixed(2)}, ${vy.toFixed(2)} → C${best + 1}`;
+        ctx.font = MONO;
+        const tw = ctx.measureText(txt).width;
+        const bx = Math.min(mouse.x + 14, plot.x + plot.w - tw - 16);
+        const by = Math.max(mouse.y - 30, plot.y + 4);
+        ctx.fillStyle = "rgba(18,17,16,0.88)";
+        ctx.fillRect(bx, by, tw + 14, 20);
+        ctx.strokeStyle = best === 0 ? `rgba(${ACCENT},0.8)` : `rgba(${FG},0.3)`;
+        ctx.strokeRect(bx + 0.5, by + 0.5, tw + 13, 19);
+        ctx.fillStyle = best === 0 ? `rgb(${ACCENT})` : `rgba(${FG},0.9)`;
+        ctx.textAlign = "left";
+        ctx.fillText(txt, bx + 7, by + 14);
+      }
+    };
+
+    /* simulation */
+    const still = reduceMotion();
+    let last = performance.now();
+    let acc = 0;
+    let hold = 0;
+    let raf = 0;
+    let visible = true;
+
+    const update = (dt: number) => {
+      // ease positions, colours, centroids
+      const kp = 1 - Math.pow(0.02, dt);
+      const kc = 1 - Math.pow(0.004, dt);
+      for (let i = 0; i < N; i++) {
+        x[i] += (tx[i] - x[i]) * kp;
+        y[i] += (ty[i] - y[i]) * kp;
+        // cursor repulsion (in px)
+        let fx = 0,
+          fy = 0;
+        if (mouse.on) {
+          const dx = PX(x[i]) - mouse.x;
+          const dy = PY(y[i]) - mouse.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < 3600 && d2 > 0.01) {
+            const d = Math.sqrt(d2);
+            const f = (1 - d / 60) * 16;
+            fx = (dx / d) * f;
+            fy = (dy / d) * f;
+          }
+        }
+        ox[i] += (fx - ox[i]) * kp;
+        oy[i] += (fy - oy[i]) * kp;
+        const target = iter === 0 ? { c: FG, a: 0.3 } : CLUSTER[label[i]];
+        const o = i * 4;
+        col[o] += (target.c[0] - col[o]) * kc;
+        col[o + 1] += (target.c[1] - col[o + 1]) * kc;
+        col[o + 2] += (target.c[2] - col[o + 2]) * kc;
+        col[o + 3] += (target.a - col[o + 3]) * kc;
+      }
+      for (let k = 0; k < K; k++) {
+        cx[k] += (ctx_[k] - cx[k]) * kc;
+        cy[k] += (cty[k] - cy[k]) * kc;
+      }
+      // discrete K-Means rhythm
+      acc += dt;
+      if (!converged && acc > 1.15) {
+        acc = 0;
+        step();
+      } else if (converged) {
+        hold += dt;
+        if (hold > 4.5) {
+          hold = 0;
+          acc = 0;
+          reseed();
+          stepRef.current?.(0, 0, false);
+        }
+      }
+    };
+
+    const loop = (now: number) => {
+      raf = requestAnimationFrame(loop);
+      if (!visible || document.hidden) {
+        last = now;
+        return;
+      }
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      update(dt);
+      draw(now);
+    };
+
+    const onMove = (e: PointerEvent) => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+      mouse.on = true;
+    };
+    const onLeave = () => {
+      mouse.on = false;
+    };
+
+    resize();
+    const ro = new ResizeObserver(() => {
+      resize();
+      if (still) draw(0);
+    });
+    ro.observe(canvas);
+    const io = new IntersectionObserver(([en]) => (visible = en.isIntersecting));
+    io.observe(canvas);
+
+    if (still) {
+      for (let s = 0; s < 20 && !converged; s++) step();
+      for (let k = 0; k < K; k++) {
+        cx[k] = ctx_[k];
+        cy[k] = cty[k];
+      }
+      for (let i = 0; i < N; i++) {
+        const c = CLUSTER[label[i]];
+        col.set([c.c[0], c.c[1], c.c[2], c.a], i * 4);
+      }
+      draw(0);
+    } else {
+      // hover probing is a desktop affordance; skip the work on touch
+      if (!coarse) {
+        canvas.addEventListener("pointermove", onMove, { passive: true });
+        canvas.addEventListener("pointerleave", onLeave);
+      }
+      raf = requestAnimationFrame(loop);
+    }
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      io.disconnect();
+      canvas.removeEventListener("pointermove", onMove);
+      canvas.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className={className} aria-label="Live K-Means clustering of player telemetry" role="img" />;
+}

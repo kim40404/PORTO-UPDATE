@@ -1,0 +1,21 @@
+/* Self-hosted, latin subsets only. Libre Franklin carries every weight the
+   datasheet uses (Regular body, Semibold parameters, Bold caps bars and title);
+   Share Tech Mono is reserved for pin numbers, axis ticks, readouts, revision code. */
+
+@font-face {
+  font-family: "Libre Franklin Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../node_modules/@fontsource-variable/libre-franklin/files/libre-franklin-latin-wght-normal.woff2")
+    format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Share Tech Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../node_modules/@fontsource/share-tech-mono/files/share-tech-mono-latin-400-normal.woff2")
+    format("woff2");
+}
