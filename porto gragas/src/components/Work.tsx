@@ -213,7 +213,16 @@ export default function Work() {
                 className="work-card group block w-full text-left"
                 aria-label={`Open ${p.title}`}
               >
-                <FigurePlate kind={p.figures[0].kind} fig={`${n}.a`} meta={p.year} compact className="aspect-[4/5]" />
+                {p.preview ? (
+                  <img
+                    src={p.preview}
+                    alt={`${p.title} project preview`}
+                    loading="lazy"
+                    className="block aspect-video w-full rounded-sm object-cover"
+                  />
+                ) : (
+                  <FigurePlate kind={p.figures[0].kind} fig={`${n}.a`} meta={p.year} compact className="aspect-[4/5]" />
+                )}
                 <div className="mt-5 flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <span className="label block truncate opacity-50">

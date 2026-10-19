@@ -44,6 +44,15 @@
       "800": "/images/citeready-800.webp"
     }
   },
+  "citereadyLive": {
+    "src": "/images/citeready-live.webp",
+    "width": 1412,
+    "height": 768,
+    "variants": {
+      "1600": "/images/citeready-live.webp",
+      "800": "/images/citeready-live-800.webp"
+    }
+  },
   "lolosPcpm": {
     "src": "/images/lolos-pcpm.webp",
     "width": 1600,

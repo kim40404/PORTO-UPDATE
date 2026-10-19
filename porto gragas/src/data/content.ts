@@ -51,6 +51,7 @@ export interface Project {
   facts: { k: string; v: string }[];
   stack: string[];
   figures: Figure[];
+  preview?: string;
   shots?: Shot[];
   href?: string;
   linkLabel?: string;
@@ -131,9 +132,10 @@ export const projects: Project[] = [
       { kind: "pillars", caption: "Three semantic pillars scored by Llama 3.1" },
       { kind: "heatmap", caption: "What the model attends to in a cited passage" },
     ],
-    shots: [{ src: assets.citeready, caption: "CiteReady audit dashboard" }],
-    href: "https://github.com/kim40404/CiteReady",
-    linkLabel: "GitHub",
+    preview: assets.citereadyLive,
+    shots: [{ src: assets.citereadyLive, caption: "CiteReady audit dashboard" }],
+    href: "https://citeready-nine.vercel.app/",
+    linkLabel: "Live access",
     metric: { value: "$0", label: "LLM inference cost" },
   },
   {
